@@ -1,0 +1,10 @@
+[
+    {
+        "cCodCCInt": "TESTE44",
+        "tipo_conta_corrente": "CC",
+        "codigo_banco": "001",
+        "numero_conta_corrente": "00312051",
+        "descricao": "Caixinha 123",
+        "saldo_inicial": 0.0
+      } 
+]
