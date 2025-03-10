@@ -1,8 +1,11 @@
+
 const axios = require("axios");
-const https = require("https"); 
-const fs = require("fs");
-const path = require("path");
-const oracledb = require("oracledb");
+const https = require("https");
+const readline = require("readline");  
+const { salvarLog } = require("../utilitarios/logService");
+const { getConnection } = require("../config/database");
+const { esperar, formatarData } = require("../utilitarios/auxiliares");
+const { gerarPayload } = require("../utilitarios/payloads");
 
 const OMIE_APP_KEY = process.env.OMIE_APP_KEY;
 const OMIE_APP_SECRET = process.env.OMIE_APP_SECRET;
@@ -12,76 +15,72 @@ const OMIE_CLIENTES_URL = "https://app.omie.com.br/api/v1/geral/clientes/";
 const OMIE_CCORRENTE_URL = "https://app.omie.com.br/api/v1/geral/contacorrente/";
 
  
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+async function aguardarEnter() {
+    return new Promise(resolve => {
+        rl.question("⏳ Pressione ENTER para enviar este registro...", () => resolve());
+    });
+}
+
 const agent = new https.Agent({ keepAlive: true, minVersion: "TLSv1.2" });
 const headers = {
     "Content-Type": "application/json",
     "X-Omie-App-Key": OMIE_APP_KEY,
     "X-Omie-App-Secret": OMIE_APP_SECRET
 };
-const dbConfig = {
-    user: process.env.ORACLE_USER,
-    password: process.env.ORACLE_PASSWORD,
-    connectString: `${process.env.ORACLE_HOST}:${process.env.ORACLE_PORT}/${process.env.ORACLE_SERVICE_NAME}`,
-  }; 
-
-function esperar(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-
-async function buscarCategoriasOmie() {
-    await esperar(1000); 
-    try {
-        const payload = {
-            call: "ListarCategorias",
-            app_key: OMIE_APP_KEY,
-            app_secret: OMIE_APP_SECRET,
-            param: [{ "pagina": 1, "registros_por_pagina": 5 }]
-        };
-        
-        console.log("🔍 Carregando as categorias no Omie...");
-        const response = await axios.post(OMIE_CATEGORIA_URL, payload, { headers, httpsAgent: agent }); 
-        
-        if (response.data && response.data.categoria_cadastro) {
-            return response.data.categoria_cadastro.map(cat => ({
-                codigo: cat.codigo,
-                descricao: cat.descricao.toLowerCase()
-            }));
-        }
-        
-        return [];
-    } catch (error) {
-        console.error("❌ Erro ao buscar categorias no Omie:", error);
-        return [];
-    }
-}
-
-    
-    async function buscarCodigoContaCorrente(idContaCorrente) { 
-        console.log(idContaCorrente)   
-        await esperar(1000);  
-
-
+  
+    async function listarContasAPagar(req, res) {   
         try {
-            const payload = {
-                call: "ListarContasCorrentes",
-                app_key: OMIE_APP_KEY,
-                app_secret: OMIE_APP_SECRET,
-                param: [{ "pagina": 1, "registros_por_pagina": 150 }]
-            };
+            const payload = gerarPayload("ListarContasPagar", [{ "pagina": 1, "registros_por_pagina": 500, "apenas_importado_api": "N" }]);    
+            console.log("🔍 Buscando contas a pagar..."); 
 
+            const response = await axios.post(OMIE_URL, payload, { headers, httpsAgent: agent }); 
+            res.json({ mensagem: "Contas a pagar listadas com sucesso!", contas_correntes: response.data }); 
+        } catch (error) {
+            console.error("❌ Erro ao listar contas a pagar:", error.message);
+            res.status(500).json({ error: error.message });
+        }
+    }
+
+    async function buscarCategoriasOmie() {
+        await esperar(1000); 
+        try { 
+            console.log("🔍 Carregando as categorias no Omie...");
+
+            const payload = gerarPayload("ListarCategorias", [{ "pagina": 1, "registros_por_pagina": 2 }]); 
+            const response = await axios.post(OMIE_CATEGORIA_URL, payload, { headers, httpsAgent: agent }); 
+            console.log(response.data.categoria_cadastro)
+            if (response.data && response.data.categoria_cadastro) {
+                return response.data.categoria_cadastro.map(categoria => ({
+                    codigo: categoria.codigo,
+                    descricao: categoria.descricao
+                }));
+            }
+            
+            return [];
+        } catch (error) {
+            console.error("❌ Erro ao buscar categorias no Omie:", error);
+            return [];
+        }
+    }
+
+    async function buscarCodigoContaCorrente(idContaCorrente) {  
+        try {
+            await esperar(1000);   
+            const payload = gerarPayload("ListarContasCorrentes", [{ "pagina": 1, "registros_por_pagina": 150 }]);
             const response = await axios.post(OMIE_CCORRENTE_URL, payload, { headers, httpsAgent: agent });
-    
-
-    
+     
             if (response.data && response.data.ListarContasCorrentes) { 
                 const contasMap = response.data.ListarContasCorrentes.map(conta => ({
                     nCodCC: conta.nCodCC,
-                    cCodCCInt: conta.cCodCCInt
-                }));
+                    cCodCCInt: conta.cCodCCInt }));
     
-                const contaEncontrada = contasMap.find(conta => conta.cCodCCInt === idContaCorrente.toString());
-                 
+             const contaEncontrada = contasMap.find(conta => conta.cCodCCInt === idContaCorrente);
+                 console.log(`CONTA ENCONTRADA PARA O ID: ${idContaCorrente} || CONTA:`, contaEncontrada)
                 if (contaEncontrada) {
                     return contaEncontrada.nCodCC; 
                 } else {
@@ -100,13 +99,8 @@ async function buscarCategoriasOmie() {
     async function buscarClienteOmie(codigoClienteRM) {
         try {
             await esperar(1000); 
-            const payload = {
-                call: "ConsultarCliente",
-                app_key: OMIE_APP_KEY,
-                app_secret: OMIE_APP_SECRET,
-                param: [{ "codigo_cliente_integracao": codigoClienteRM }]
-            };
-
+            
+            const payload = gerarPayload("ConsultarCliente", [{ "codigo_cliente_integracao": codigoClienteRM }]);  
             console.log(`🔍 Buscando cliente no Omie: ${codigoClienteRM}`);
 
             const response = await axios.post(OMIE_CLIENTES_URL, payload, { headers, httpsAgent: agent });
@@ -126,7 +120,7 @@ async function buscarCategoriasOmie() {
     async function buscarContasPagarRM() {
         let connection;
         try {
-            connection = await oracledb.getConnection(dbConfig);
+            connection = await getConnection();
 
             const sql = `
                     SELECT distinct  
@@ -136,8 +130,7 @@ async function buscarCategoriasOmie() {
                             L.VALORORIGINAL as valor_documento,
                             NVL(T.DESCRICAO, 'PADRAO_OMIE') AS codigo_categoria,
                             L.DATAPREVBAIXA as data_previsao,        
-                            L.CODCXA as id_conta_corrente
-                    
+                            L.CODCXA as id_conta_corrente 
                     
                         FROM FLAN L    
                             LEFT JOIN GFILIAL F ON L.CODCOLIGADA = F.CODCOLIGADA AND L.CODFILIAL = F.CODFILIAL
@@ -152,13 +145,11 @@ async function buscarCategoriasOmie() {
                             LEFT JOIN GDEPTO DEPT ON DEPT.CODDEPARTAMENTO = L.CODDEPARTAMENTO AND DEPT.CODCOLIGADA = L.CODCOLIGADA AND L.CODFILIAL = DEPT.CODFILIAL
 
                         WHERE 
-                            L.DATAVENCIMENTO = TO_DATE('01/02/2025', 'DD/MM/YYYY')
+                            L.DATAVENCIMENTO = TO_DATE('01/03/2025', 'DD/MM/YYYY')
                             AND L.PAGREC = 2 
                             AND L.CODCOLIGADA IN (1, 8, 10, 12, 15, 16, 21)
                             AND L.STATUSLAN IN (0, 1)
-                            AND FBAIXA.DATACANCELBAIXA IS NULL
-                    
-                    
+                            AND FBAIXA.DATACANCELBAIXA IS NULL  
             `; 
             const result = await connection.execute(sql); 
             return result.rows.map((row) => ({
@@ -181,23 +172,67 @@ async function buscarCategoriasOmie() {
         }
     } 
 
+    async function incluirContaPagar(req, res) { 
+        try {
+            const categoriasOmie = await buscarCategoriasOmie(); 
+            const contasRM = await buscarContasPagarRM(); 
+            
+        const codigoPadrao = "0.01.98"; 
+ 
+        for (let conta of contasRM) {  
+            conta.codigo_cliente_fornecedor = await buscarClienteOmie(conta.codigo_cliente_fornecedor) || "0"; //ACHAR CLIENTE  
+            const codigoConta = await buscarCodigoContaCorrente(conta.id_conta_corrente); //ACHAR CONTA CORRENTE 
+          
+            if (codigoConta) {
+                conta.id_conta_corrente = codigoConta;
+            }  
+            
+            //ACHAR A CATEGORIA
+            console.log('Descricao: ', categoriasOmie)
+            console.log('Conta codigo: ', conta.codigo_categoria)
+            const categoriaEncontrada = categoriasOmie.find(cat => cat.descricao === conta.codigo_categoria);
+            conta.codigo_categoria = categoriaEncontrada ? categoriaEncontrada.codigo : codigoPadrao; 
+        } 
+        
+        contas = contas.map(conta => {  
+            let contaFormatada = {
+                ...conta,
+                data_vencimento: formatarData(conta.data_vencimento),
+                data_previsao: formatarData(conta.data_previsao),
+            };
+         
+            return contaFormatada;
+        });
+
+            console.log("📦 Contas formatadas antes do envio:", JSON.stringify(contas, null, 2));
+            console.log("Finalizado") 
+
+        const resultados = await enviarParaOmie(contas);
+            res.json({ mensagem: "Contas a pagar enviadas com sucesso!", contas_pagar: resultados });
+       } catch (error) {
+        console.error("❌ Erro geral:", error);
+            res.status(500).json({ erro: error.message });
+    }
+    }
+    
     async function enviarParaOmie(contas) {
         const resultados = [];
         const sucesso = [];
         const erros = [];
 
-        console.log("📦 Contas formatadas antes do envio:", JSON.stringify(contas, null, 2)); 
+            console.log("📦 Contas formatadas antes do envio:", JSON.stringify(contas, null, 2)); 
 
         for (const conta of contas) {
             try {
                 await esperar(1000); 
-                const payload = {
-                    call: "IncluirContaPagar",
-                    app_key: OMIE_APP_KEY,
-                    app_secret: OMIE_APP_SECRET,
-                    param: [conta],
-                };  
 
+                console.log("\n🔍 PRÓXIMA CONTA A SER ENVIADA:");
+                console.log(JSON.stringify(conta, null, 2));
+ 
+                await aguardarEnter();
+
+                const payload = gerarPayload("UpsertContaPagar", [conta]);
+ 
                 console.log(` Enviando conta: ${conta.codigo_lancamento_integracao}`);
                 const response = await axios.post(OMIE_URL, payload, {
                     headers: headers,
@@ -214,111 +249,11 @@ async function buscarCategoriasOmie() {
             }
         }
 
+        rl.close(); 
 
-        // ARQUIVO DE LOG 
-            const now = new Date();
-            const timestamp = now.toISOString().replace(/[-T:.Z]/g, "_");
-            const logPath = path.join(__dirname, `../logs/log_contas_${timestamp}.txt`);
-
-            const dataAtual = new Date().toLocaleString("pt-BR");
-
-            let logContent = `📅 Log de execução - ${dataAtual}\n`;
-            logContent += `\n✅ Contas enviadas com sucesso: ${sucesso.length}\n`;
-            sucesso.forEach(c => logContent += `  - ${c.codigo_lancamento_integracao} | Valor: ${c.valor_documento}\n`);
-
-            logContent += `\n❌ Contas com erro: ${erros.length}\n`;
-            erros.forEach(e => logContent += `  - ${e.conta.codigo_lancamento_integracao} | Erro: ${e.erro}\n`);
-
-    //        fs.writeFileSync(logPath, logContent, "utf-8");
-            fs.writeFileSync(logPath.replace('.txt', '.json'), JSON.stringify({ sucesso, erros }, null, 2), "utf-8");
-
-
-            console.log(`📂 Log salvo em: ${logPath}`);
-
-
+        // CRIAR ARQUIVO LOG DE ENVIO
+        salvarLog("log_contas", sucesso, erros); 
         return resultados;
-    }
-
-    async function incluirContaPagar(req, res) { 
-        try {
-        const categoriasOmie = await buscarCategoriasOmie(); 
-        const contas = await buscarContasPagarRM(); 
-         
-        console.log("CATEGORIAS", categoriasOmie)
-        const codigoPadrao = "0.01.99"; 
-
-        const formatarData = (data) => {
-            if (!data) return null;   
-            const dataFormatada = new Date(data).toISOString().split('T')[0].split('-').reverse().join('/');
-            return dataFormatada;
-        };
- 
-        for (let conta of contas) { 
-            //ACHAR CLIENTE
-            conta.codigo_cliente_fornecedor = await buscarClienteOmie(conta.codigo_cliente_fornecedor) || "0";  
-             
-            //ACHAR CONTA CORRENTE
-            const codigoConta = await buscarCodigoContaCorrente(conta.id_conta_corrente);
-            if (codigoConta) {
-                conta.id_conta_corrente = codigoConta;
-            }
-            
-            //ACHAR A CATEGORIA
-            console.log('descricao: ', categoriasOmie.descricao)
-            console.log('conta codigo: ', conta.codigo_categoria)
-            const categoriaEncontrada = categoriasOmie.find(cat => console.log('DESC:', cat.descricao),  console.log('DESCRICAO:', conta.codigo_categoria)) // === conta.codigo_categoria);
-            conta.codigo_categoria = categoriaEncontrada ? categoriaEncontrada.codigo : codigoPadrao;
-
-        } 
-        
-        contas = contas.map(conta => { 
-        
-            let contaFormatada = {
-                ...conta,
-                data_vencimento: formatarData(conta.data_vencimento),
-                data_previsao: formatarData(conta.data_previsao),
-            };
-         
-            return contaFormatada;
-        });
-
-        console.log("📦 Contas formatadas antes do envio:", JSON.stringify(contas, null, 2));
-        console.log("Finalizado")
-    return
-        const resultados = await enviarParaOmie(contas);
-        res.json({ mensagem: "Contas a pagar enviadas com sucesso!", contas_pagar: resultados });
-       } catch (error) {
-        console.error("❌ Erro geral:", error);
-        res.status(500).json({ erro: error.message });
-    }
-}
- 
-
-async function listarContasAPagar(req, res) {  
-    console.log("buscando")
-  try {
-      const payload = {
-          call: "ListarContasPagar",
-          app_key: OMIE_APP_KEY,
-          app_secret: OMIE_APP_SECRET,
-          param: [{
-              "pagina": 1,
-              "registros_por_pagina": 100,
-              "apenas_importado_api": "N"
-          }]
-      };
-
-      console.log("🔍 Buscando contas a pagar...");
-      const response = await axios.post(OMIE_URL, payload, { headers, httpsAgent: agent });
-
-      res.json({ mensagem: "Contas a pagar listadas com sucesso!", contas_correntes: response.data });
-
-  } catch (error) {
-  console.error("❌ Erro ao listar contas a pagar:", error.message);
-  res.status(500).json({ error: error.message });
-}
-}
-
-
+    } 
 
 module.exports = { listarContasAPagar, incluirContaPagar };

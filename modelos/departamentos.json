@@ -1,11 +1,15 @@
-[ 
-    { "codigo": "7118117273", "descricao": "DIRETORIA (MODELO)" },
-    { "codigo": "7118117273", "descricao": "COORDENAÇÃO DE PROGRAMAÇÃO (MODELO)" },
-    { "codigo": "7118117273", "descricao": "SUPERVISÃO DE VENDAS (MODELO)" },
-    { "codigo": "7118117273", "descricao": "JORNALISMO (MODELO)" },
-    { "codigo": "7118117273", "descricao": "JURÍDICO (MODELO)" },
-    { "codigo": "7118117273", "descricao": "CONTABILIDADE (MODELO)" },
-    { "codigo": "7118117273", "descricao": "PROJETO AC (MODELO)" },
-    { "codigo": "7118117273", "descricao": "PROJETO IR (MODELO)" },
-    { "codigo": "7118117273", "descricao": "PUBLICIDADE (MODELO)" }
+[
+    { "codigo": "7119415254", "descricao": "DIRETORIA (RADIO)" },
+    { "codigo": "7119415254", "descricao": "ADMINISTRATIVO (RADIO)" },
+    { "codigo": "7119415254", "descricao": "COMERCIAL (RADIO)" },
+    { "codigo": "7119415254", "descricao": "COORDENACAO DE PROGRAMACAO (RADIO)" },
+    { "codigo": "7119415254", "descricao": "JORNALISMO (RADIO)" },
+    { "codigo": "7119415254", "descricao": "TI (RADIO)" },
+    { "codigo": "7119415254", "descricao": "JURIDICO (RADIO)" },
+    { "codigo": "7119415254", "descricao": "CONTABILIDADE (RADIO)" },
+    { "codigo": "7119415254", "descricao": "RADIO TOCANTINS (RADIO)" },
+    { "codigo": "7119415254", "descricao": "RADIO TROPICAL (RADIO)" },
+    { "codigo": "7119415254", "descricao": "PROJETOS AC (RADIO)" },
+    { "codigo": "7119415254", "descricao": "PROJETOS IR (RADIO)" },
+    { "codigo": "7119415254", "descricao": "PUBLICIDADE (RADIO)" }
 ]

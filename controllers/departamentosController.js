@@ -15,7 +15,7 @@ const headers = {
 
 const agent = new https.Agent({ keepAlive: true, minVersion: "TLSv1.2" });
 
-async function criarDepartamento(req, res) {
+async function incluirDepartamento(req, res) {
     try { 
         const departamentosPath = path.join(__dirname, "../modelos/departamentos.json");
         const departamentos = JSON.parse(fs.readFileSync(departamentosPath, "utf-8"));
@@ -65,4 +65,4 @@ async function buscarDepartamentos(req, res) {
     return listarDepartamentos(req, res);
 }
 
-module.exports = { criarDepartamento, listarDepartamentos, buscarDepartamentos };
+module.exports = { incluirDepartamento, listarDepartamentos, buscarDepartamentos };

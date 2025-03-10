@@ -1,6 +1,6 @@
 const axios = require("axios");
 const https = require("https");
-
+ 
 const OMIE_APP_KEY = process.env.OMIE_APP_KEY;
 const OMIE_APP_SECRET = process.env.OMIE_APP_SECRET;
 
