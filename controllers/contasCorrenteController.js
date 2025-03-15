@@ -28,62 +28,88 @@ async function esperar(ms) {
 }
  
 
-async function buscarContasRM() {
+  async function buscarContasRM() { 
+      await esperar(1000);
+      let connection;
+      try {
+        connection = await oracledb.getConnection(dbConfig);
+    
+        const sql = `
+                SELECT 
+                    CX.CODCXA as cCodCCInt,
+                    'CC' AS tipo_conta_corrente,  
+                    F.NUMBANCO AS codigo_banco,
+                    CX.CODCXA AS descricao,
+                    F.NUMAGENCIA as codigo_agencia,
+                    CASE 
+                        WHEN F.DIGCONTA IS NOT NULL 
+                        THEN F.NROCONTA || '-' || F.DIGCONTA
+                        ELSE F.NROCONTA 
+                    END AS  numero_conta_corrente,
+                    0 AS saldo_inicial
+                FROM FCXA CX
+                LEFT JOIN FCONTA F ON CX.NUMAGENCIA = f.NUMAGENCIA and cx.NUMBANCO = f.NUMBANCO and cx.nroconta = F.NROCONTA 
+                LEFT JOIN GBANCO B ON F.NUMBANCO = B.NUMBANCO 
 
-    await esperar(1000);
-    let connection;
-    try {
-      connection = await oracledb.getConnection(dbConfig);
-  
-      const sql = `
-              SELECT 
-                  CX.CODCXA as cCodCCInt,
-                  'CC' AS tipo_conta_corrente,  
-                  F.NUMBANCO AS codigo_banco,
-                  CX.CODCXA AS descricao,
-                  F.NUMAGENCIA as codigo_agencia,
-                  CASE 
-                      WHEN F.DIGCONTA IS NOT NULL 
-                      THEN F.NROCONTA || '-' || F.DIGCONTA
-                      ELSE F.NROCONTA 
-                  END AS  numero_conta_corrente,
-                  0 AS saldo_inicial
-              FROM FCXA CX
-              LEFT JOIN FCONTA F ON CX.NUMAGENCIA = f.NUMAGENCIA and cx.NUMBANCO = f.NUMBANCO and cx.nroconta = F.NROCONTA 
-              LEFT JOIN GBANCO B ON F.NUMBANCO = B.NUMBANCO 
+                WHERE CX.DESCRICAO IS NOT NULL  
+                    and F.NUMAGENCIA is not null 
+        `;
+    
+        const result = await connection.execute(sql);
+    
+        const contas = result.rows.map((row) => ({
+          cCodCCInt: row[0],  
+          tipo_conta_corrente: row[1],  
+          codigo_banco: row[2],  
+          descricao: row[3],   
+          codigo_agencia: row[4],   
+          numero_conta_corrente: row[5],   
+          saldo_inicial: row[6]   
+        }));
 
-              WHERE CX.DESCRICAO IS NOT NULL 
-                  and CX.SALDOINSTANTANEO <> 0  
-                  and F.NUMAGENCIA is not null 
-      `;
-  
-      const result = await connection.execute(sql);
-   
-      const contas = result.rows.map((row) => ({
-        cCodCCInt: row[0],  
-        tipo_conta_corrente: row[1],  
-        codigo_banco: row[2],  
-        descricao: row[3],   
-        codigo_agencia: row[4],   
-        numero_conta_corrente: row[5],   
-        saldo_inicial: row[6]   
-      }));
+        console.log(`🔄 ${contas.length} contas carregadas do RM.`);
 
-      console.log(`🔄 ${contas.length} contas carregadas do RM.`);
-
-      return contas;
-    } catch (error) {
-      console.error("❌ Erro ao buscar contas no RM:", error);
-      return [];
-    } finally {
-      if (connection) {
-        await connection.close();
+        return contas;
+      } catch (error) {
+        console.error("❌ Erro ao buscar contas no RM:", error);
+        return [];
+      } finally {
+        if (connection) {
+          await connection.close();
+        }
       }
-    }
   } 
 
-async function listarContasCorrentes(req, res) { 
-  await esperar(1000);
+  async function listarContasCorrentes(req, res) { 
+    await esperar(1000);
+      try {
+          const payload = {
+              call: "ListarContasCorrentes",
+              app_key: OMIE_APP_KEY,
+              app_secret: OMIE_APP_SECRET,
+              param: [{
+                  "pagina": 1,
+                  "registros_por_pagina": 5000,
+                  "apenas_importado_api": "N"
+              }]
+          };
+          
+
+          console.log("🔍 Buscando contas correntes..."); 
+          const response = await axios.post(OMIE_URL, payload, { 
+            headers, 
+            httpsAgent: agent });
+
+          res.json({ mensagem: "Contas correntes listadas com sucesso!", contas_correntes: response.data });
+
+      } catch (error) {
+      console.error("❌ Erro ao listar contas correntes:", error.message);
+      res.status(500).json({ error: error.message });
+  }
+  }
+  
+  async function buscarContasCorrenteOmie() {
+    console.log("🔍 Buscando contas correntes no Omie...");
     try {
         const payload = {
             call: "ListarContasCorrentes",
@@ -91,56 +117,72 @@ async function listarContasCorrentes(req, res) {
             app_secret: OMIE_APP_SECRET,
             param: [{
                 "pagina": 1,
-                "registros_por_pagina": 100,
-                "apenas_importado_api": "N"
+                "registros_por_pagina": 500
             }]
         };
-        
 
-        console.log("🔍 Buscando contas correntes..."); 
-        const response = await axios.post(OMIE_URL, payload, { 
-          headers, 
-          httpsAgent: agent });
+        const response = await axios.post(OMIE_URL, payload, { headers, httpsAgent: agent });
 
-        res.json({ mensagem: "Contas correntes listadas com sucesso!", contas_correntes: response.data });
+        // 🔥 Loga a resposta completa para verificar a estrutura da API
+        console.log("📥 Resposta da API Omie:", JSON.stringify(response.data, null, 2));
 
+        if (response.data && response.data.ListarContasCorrentes) { 
+            console.log(`✅ ${response.data.ListarContasCorrentes.length} contas encontradas no Omie.`);
+            return response.data.ListarContasCorrentes; // 🔹 Agora retorna um array normal
+        }
+
+        return [];
     } catch (error) {
-    console.error("❌ Erro ao listar contas correntes:", error.message);
-    res.status(500).json({ error: error.message });
-}
-}
-
-async function enviarParaOmie(contas) {
-    const resultados = [];
-    const contasFalharam = []; 
-  
-    for (const conta of contas) {
-      try {
-        const payload = {
-          call: "IncluirContaCorrente",
-          app_key: OMIE_APP_KEY,
-          app_secret: OMIE_APP_SECRET,
-          param: [conta],
-        };
-  
-        console.log(` Enviando conta: ${conta.descricao}`);
-        const response = await axios.post(OMIE_URL, payload, {
-          headers: { "Content-Type": "application/json" },
-        });
-  
-        console.log(`✅ Conta "${conta.descricao}" enviada com sucesso!`);
-        resultados.push(response.data);
-
-        await new Promise(resolve => setTimeout(resolve, 600));
-
-
-      } catch (error) {
-        console.error(` Erro ao enviar conta ${conta.descricao}:`, error.response?.data || error.message);
-        contasFalharam.push(conta);
-      }
+        console.error("❌ Erro ao listar contas correntes no Omie:", error.response?.data || error.message);
+        return [];
     }
-  
-    await new Promise(resolve => setTimeout(resolve, 600));
+}
+
+  async function enviarParaOmie(contas) {
+    const resultados = [];
+    const contasFalharam = [];  
+
+    console.log("🔍 Verificando quais contas já existem no Omie...");
+    const contasExistentes = await buscarContasCorrenteOmie();
+    
+    console.log("📋 Contas existentes no Omie:", contasExistentes.map(c => c.descricao));
+
+    // 🔥 Comparação pelo campo "descricao" para evitar reenvios de contas já cadastradas
+    const contasParaEnvio = contas.filter(contaRM => 
+        !contasExistentes.some(contaOmie => 
+            contaOmie.descricao.trim().toLowerCase() === contaRM.descricao.trim().toLowerCase()
+        )
+    );
+
+    if (contasParaEnvio.length === 0) {
+        console.log("✅ Nenhuma nova conta para enviar. Todas já existem no Omie.");
+        return { enviados: [], falhados: [] };
+    }
+
+    console.log(`📦 ${contasParaEnvio.length} contas serão enviadas para o Omie.`);
+
+    for (const conta of contasParaEnvio) {
+        try {
+            const payload = {
+                call: "IncluirContaCorrente",
+                app_key: OMIE_APP_KEY,
+                app_secret: OMIE_APP_SECRET,
+                param: [conta],
+            };
+
+            console.log(`🚀 Enviando conta: ${conta.descricao}`);
+            const response = await axios.post(OMIE_URL, payload, { headers, httpsAgent: agent });
+
+            console.log(`✅ Conta "${conta.descricao}" enviada com sucesso!`);
+            resultados.push(response.data);
+
+            await esperar(1000); // Evita limite da API
+
+        } catch (error) {
+            console.error(`❌ Erro ao enviar conta ${conta.descricao}:`, error.response?.data || error.message);
+            contasFalharam.push(conta);
+        }
+    }
 
     console.log(`✅ Envio concluído: ${resultados.length} contas enviadas com sucesso.`);
     
@@ -152,11 +194,11 @@ async function enviarParaOmie(contas) {
             numero_conta_corrente: c.numero_conta_corrente
         })));
     }
+
     return { enviados: resultados, falhados: contasFalharam };
   }
-
-async function incluirContaCorrente(req, res) {
-
+  
+  async function incluirContaCorrente(req, res) { 
   await esperar(1000);
     try {  
       console.log("🔄 Buscando contas no RM TOTVS...");
@@ -207,97 +249,42 @@ async function incluirContaCorrente(req, res) {
         console.error("❌ Erro ao buscar departamentos no Omie:", error.response?.data || error.message);
         return [];
     }
-}
-
-async function excluirTodasContasCorrentesOmie() {
-  const contas = await listarDepartamentosOmie();
-
-  if (contas.length === 0) {
-      console.warn("⚠️ Nenhuma conta corrente para excluir.");
-      return;
   }
 
-  console.log(`🗑️ Excluindo ${contas.length} contas correntes...`);
+  async function excluirTodasContasCorrentesOmie() {
+    const contas = await listarDepartamentosOmie();
 
-  for (const conta of contas) {
-      try {
-          await new Promise(resolve => setTimeout(resolve, 1000));  
+    if (contas.length === 0) {
+        console.warn("⚠️ Nenhuma conta corrente para excluir.");
+        return;
+    }
 
-          const payload = {
-              call: "ExcluirContaCorrente",
-              app_key: OMIE_APP_KEY,
-              app_secret: OMIE_APP_SECRET,
-              param: [{
-                  nCodCC: conta.nCodCC,
-                  cCodCCInt: conta.cCodCCInt
-              }]
-          };
+    console.log(`🗑️ Excluindo ${contas.length} contas correntes...`);
 
-          const response = await axios.post("https://app.omie.com.br/api/v1/geral/contacorrente/", payload, { headers, httpsAgent: agent });
-
-          console.log(`✅ Conta "${conta.cCodCCInt}" (Código Omie: ${conta.nCodCC}) excluída!`, response.data);
-      } catch (error) {
-          console.error(`❌ Erro ao excluir conta "${conta.cCodCCInt}" (Código Omie: ${conta.nCodCC}):`, error.response?.data || error.message);
-      }
-  }
-
-  console.log("🚀 Exclusão de contas correntes finalizada!");
-}
-  
-
-/* 
-async function incluirContaCorrente(req, res) { 
-    try { 
-        const contasPath = path.resolve(__dirname, "../modelos/contasCorrentes.json");
-        if (!fs.existsSync(contasPath)) {
-            return res.status(400).json({ erro: "Arquivo de contas correntes não encontrado." });
-        } 
-
-        const contasCorrentes = JSON.parse(fs.readFileSync(contasPath, "utf-8"));
-        if (!Array.isArray(contasCorrentes) || contasCorrentes.length === 0) {
-            return res.status(400).json({ erro: "Nenhuma conta corrente válida encontrada no arquivo." });
-        } 
-
-        const resultados = [];
-        console.log(contasCorrentes)
-
-        for (const conta of contasCorrentes) { 
-            if (!conta.cCodCCInt || !conta.descricao || !conta.tipo_conta_corrente || !conta.codigo_banco  ) {
-                console.warn(`⚠️ Conta inválida:`, conta);
-                continue;
-            }
+    for (const conta of contas) {
+        try {
+            await new Promise(resolve => setTimeout(resolve, 1000));  
 
             const payload = {
-                call: "IncluirContaCorrente",
+                call: "ExcluirContaCorrente",
                 app_key: OMIE_APP_KEY,
                 app_secret: OMIE_APP_SECRET,
                 param: [{
-                    "cCodCCInt": conta.cCodCCInt,
-                    "tipo_conta_corrente": conta.tipo_conta_corrente,
-                    "codigo_banco": conta.codigo_banco,
-                    "descricao": conta.descricao, 
-                    "numero_conta_corrente": conta.numero_conta_corrente,
-                    "saldo_inicial": conta.saldo_inicial ,
+                    nCodCC: conta.nCodCC,
+                    cCodCCInt: conta.cCodCCInt
                 }]
             };
 
-            console.log(`➕ Incluindo conta: ${conta.descricao}`);
-            const response = await axios.post(OMIE_URL, payload, { headers: headers, httpsAgent: agent });
+            const response = await axios.post("https://app.omie.com.br/api/v1/geral/contacorrente/", payload, { headers, httpsAgent: agent });
 
-            console.log(`✅ Conta corrente "${conta.descricao}" incluída com sucesso!`, response.data);
-            resultados.push(response.data);
+            console.log(`✅ Conta "${conta.cCodCCInt}" (Código Omie: ${conta.nCodCC}) excluída!`, response.data);
+        } catch (error) {
+            console.error(`❌ Erro ao excluir conta "${conta.cCodCCInt}" (Código Omie: ${conta.nCodCC}):`, error.response?.data || error.message);
         }
-
-        res.json({
-            mensagem: "Contas correntes incluídas com sucesso!",
-            contas_correntes: resultados
-        });
-
-    } catch (error) {
-        console.error("❌ Erro ao incluir contas correntes:", error.response?.data || error.message);
-        res.status(500).json({ erro: error.response?.data || error.message });
     }
-}
-*/
+
+    console.log("🚀 Exclusão de contas correntes finalizada!");
+  }
+   
 
 module.exports = { listarContasCorrentes, incluirContaCorrente, excluirTodasContasCorrentesOmie };

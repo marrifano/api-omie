@@ -1,0 +1,282 @@
+{
+  "sucesso": [
+    {
+      "codigo_lancamento_integracao": 301826,
+      "codigo_cliente_fornecedor": 7115489700,
+      "data_vencimento": "13/03/2025",
+      "valor_documento": 9147.38,
+      "codigo_categoria": "2.02.99",
+      "data_previsao": "12/03/2025",
+      "id_conta_corrente": 7119131747
+    },
+    {
+      "codigo_lancamento_integracao": 40356,
+      "codigo_cliente_fornecedor": 7119788640,
+      "data_vencimento": "13/03/2025",
+      "valor_documento": 2600,
+      "codigo_categoria": "2.02.99",
+      "data_previsao": "10/03/2025",
+      "id_conta_corrente": 7119131286
+    },
+    {
+      "codigo_lancamento_integracao": 656953,
+      "codigo_cliente_fornecedor": 7118286149,
+      "data_vencimento": "13/03/2025",
+      "valor_documento": 1394.66,
+      "codigo_categoria": "2.02.99",
+      "data_previsao": "10/03/2025",
+      "id_conta_corrente": 7119132098
+    },
+    {
+      "codigo_lancamento_integracao": 656968,
+      "codigo_cliente_fornecedor": 7118286149,
+      "data_vencimento": "13/03/2025",
+      "valor_documento": 3621.56,
+      "codigo_categoria": "2.02.99",
+      "data_previsao": "10/03/2025",
+      "id_conta_corrente": 7119132098
+    },
+    {
+      "codigo_lancamento_integracao": 656956,
+      "codigo_cliente_fornecedor": 7118286149,
+      "data_vencimento": "13/03/2025",
+      "valor_documento": 2091.67,
+      "codigo_categoria": "2.02.99",
+      "data_previsao": "10/03/2025",
+      "id_conta_corrente": 7119132098
+    },
+    {
+      "codigo_lancamento_integracao": 39941,
+      "codigo_cliente_fornecedor": 7119729184,
+      "data_vencimento": "13/03/2025",
+      "valor_documento": 2500,
+      "codigo_categoria": "2.02.99",
+      "data_previsao": "10/03/2025",
+      "id_conta_corrente": 7119131286
+    },
+    {
+      "codigo_lancamento_integracao": 40369,
+      "codigo_cliente_fornecedor": 7117432017,
+      "data_vencimento": "13/03/2025",
+      "valor_documento": 3000,
+      "codigo_categoria": "2.02.99",
+      "data_previsao": "10/03/2025",
+      "id_conta_corrente": 7119131286
+    },
+    {
+      "codigo_lancamento_integracao": 4191438,
+      "codigo_cliente_fornecedor": 7115402385,
+      "data_vencimento": "13/03/2025",
+      "valor_documento": 4660.46,
+      "codigo_categoria": "2.02.99",
+      "data_previsao": "13/03/2025",
+      "id_conta_corrente": 7119131797
+    },
+    {
+      "codigo_lancamento_integracao": 656955,
+      "codigo_cliente_fornecedor": 7118286149,
+      "data_vencimento": "13/03/2025",
+      "valor_documento": 8900.03,
+      "codigo_categoria": "2.02.99",
+      "data_previsao": "10/03/2025",
+      "id_conta_corrente": 7119132098
+    },
+    {
+      "codigo_lancamento_integracao": 4203573,
+      "codigo_cliente_fornecedor": 7118648929,
+      "data_vencimento": "13/03/2025",
+      "valor_documento": 3000,
+      "codigo_categoria": "2.02.99",
+      "data_previsao": "13/03/2025",
+      "id_conta_corrente": 7119131797
+    },
+    {
+      "codigo_lancamento_integracao": 657285,
+      "codigo_cliente_fornecedor": 7115394481,
+      "data_vencimento": "13/03/2025",
+      "valor_documento": 77659.54,
+      "codigo_categoria": "2.02.99",
+      "data_previsao": "13/03/2025",
+      "id_conta_corrente": 7119131820
+    },
+    {
+      "codigo_lancamento_integracao": 656862,
+      "codigo_cliente_fornecedor": 7118286149,
+      "data_vencimento": "13/03/2025",
+      "valor_documento": 944.18,
+      "codigo_categoria": "2.02.99",
+      "data_previsao": "10/03/2025",
+      "id_conta_corrente": 7119132098
+    },
+    {
+      "codigo_lancamento_integracao": 40368,
+      "codigo_cliente_fornecedor": 7119729320,
+      "data_vencimento": "13/03/2025",
+      "valor_documento": 2500,
+      "codigo_categoria": "2.02.99",
+      "data_previsao": "10/03/2025",
+      "id_conta_corrente": 7119131286
+    },
+    {
+      "codigo_lancamento_integracao": 656860,
+      "codigo_cliente_fornecedor": 7118286149,
+      "data_vencimento": "13/03/2025",
+      "valor_documento": 2817.59,
+      "codigo_categoria": "2.02.99",
+      "data_previsao": "10/03/2025",
+      "id_conta_corrente": 7119132098
+    },
+    {
+      "codigo_lancamento_integracao": 4203202,
+      "codigo_cliente_fornecedor": 7115633024,
+      "data_vencimento": "13/03/2025",
+      "valor_documento": 208,
+      "codigo_categoria": "2.02.99",
+      "data_previsao": "12/03/2025",
+      "id_conta_corrente": 7119132119
+    },
+    {
+      "codigo_lancamento_integracao": 656865,
+      "codigo_cliente_fornecedor": 7118286149,
+      "data_vencimento": "13/03/2025",
+      "valor_documento": 9099.03,
+      "codigo_categoria": "2.02.99",
+      "data_previsao": "10/03/2025",
+      "id_conta_corrente": 7119132098
+    },
+    {
+      "codigo_lancamento_integracao": 4203210,
+      "codigo_cliente_fornecedor": 7115489700,
+      "data_vencimento": "13/03/2025",
+      "valor_documento": 6689.44,
+      "codigo_categoria": "2.02.99",
+      "data_previsao": "12/03/2025",
+      "id_conta_corrente": 7119131797
+    },
+    {
+      "codigo_lancamento_integracao": 656967,
+      "codigo_cliente_fornecedor": 7118286149,
+      "data_vencimento": "13/03/2025",
+      "valor_documento": 272.96,
+      "codigo_categoria": "2.02.99",
+      "data_previsao": "10/03/2025",
+      "id_conta_corrente": 7119132098
+    },
+    {
+      "codigo_lancamento_integracao": 40362,
+      "codigo_cliente_fornecedor": 7118649619,
+      "data_vencimento": "13/03/2025",
+      "valor_documento": 2600,
+      "codigo_categoria": "2.02.99",
+      "data_previsao": "10/03/2025",
+      "id_conta_corrente": 7119131286
+    },
+    {
+      "codigo_lancamento_integracao": 657451,
+      "codigo_cliente_fornecedor": 7117348588,
+      "data_vencimento": "13/03/2025",
+      "valor_documento": 35.28,
+      "codigo_categoria": "2.02.99",
+      "data_previsao": "13/03/2025",
+      "id_conta_corrente": 7119132119
+    },
+    {
+      "codigo_lancamento_integracao": 656861,
+      "codigo_cliente_fornecedor": 7118286149,
+      "data_vencimento": "13/03/2025",
+      "valor_documento": 944.18,
+      "codigo_categoria": "2.02.99",
+      "data_previsao": "10/03/2025",
+      "id_conta_corrente": 7119132098
+    },
+    {
+      "codigo_lancamento_integracao": 39947,
+      "codigo_cliente_fornecedor": 7119729135,
+      "data_vencimento": "13/03/2025",
+      "valor_documento": 2500,
+      "codigo_categoria": "2.02.99",
+      "data_previsao": "10/03/2025",
+      "id_conta_corrente": 7119131286
+    },
+    {
+      "codigo_lancamento_integracao": 658429,
+      "codigo_cliente_fornecedor": 7119788667,
+      "data_vencimento": "13/03/2025",
+      "valor_documento": 2500,
+      "codigo_categoria": "2.02.99",
+      "data_previsao": "13/03/2025",
+      "id_conta_corrente": 7119132098
+    },
+    {
+      "codigo_lancamento_integracao": 656954,
+      "codigo_cliente_fornecedor": 7118286149,
+      "data_vencimento": "13/03/2025",
+      "valor_documento": 4498.38,
+      "codigo_categoria": "2.02.99",
+      "data_previsao": "10/03/2025",
+      "id_conta_corrente": 7119132098
+    }
+  ],
+  "erros": [
+    {
+      "conta": {
+        "codigo_lancamento_integracao": 4203555,
+        "codigo_cliente_fornecedor": "0",
+        "data_vencimento": "13/03/2025",
+        "valor_documento": 29600,
+        "codigo_categoria": "2.01.77",
+        "data_previsao": "13/03/2025",
+        "id_conta_corrente": 7119131325
+      },
+      "erro": "Erro ao enviar conta 4203555: ERROR: É obrigatório o preenchimento das tags [codigo_cliente_fornecedor] ou [codigo_cliente_fornecedor_integracao]!"
+    },
+    {
+      "conta": {
+        "codigo_lancamento_integracao": 4203559,
+        "codigo_cliente_fornecedor": "0",
+        "data_vencimento": "13/03/2025",
+        "valor_documento": 13600,
+        "codigo_categoria": "2.01.77",
+        "data_previsao": "13/03/2025",
+        "id_conta_corrente": 7119131426
+      },
+      "erro": "Erro ao enviar conta 4203559: ERROR: É obrigatório o preenchimento das tags [codigo_cliente_fornecedor] ou [codigo_cliente_fornecedor_integracao]!"
+    },
+    {
+      "conta": {
+        "codigo_lancamento_integracao": 658475,
+        "codigo_cliente_fornecedor": "0",
+        "data_vencimento": "13/03/2025",
+        "valor_documento": 54500,
+        "codigo_categoria": "2.01.77",
+        "data_previsao": "13/03/2025",
+        "id_conta_corrente": 7119131605
+      },
+      "erro": "Erro ao enviar conta 658475: ERROR: É obrigatório o preenchimento das tags [codigo_cliente_fornecedor] ou [codigo_cliente_fornecedor_integracao]!"
+    },
+    {
+      "conta": {
+        "codigo_lancamento_integracao": 657978,
+        "codigo_cliente_fornecedor": "0",
+        "data_vencimento": "13/03/2025",
+        "valor_documento": 180,
+        "codigo_categoria": "2.02.99",
+        "data_previsao": "10/03/2025",
+        "id_conta_corrente": 7119132098
+      },
+      "erro": "Erro ao enviar conta 657978: ERROR: É obrigatório o preenchimento das tags [codigo_cliente_fornecedor] ou [codigo_cliente_fornecedor_integracao]!"
+    },
+    {
+      "conta": {
+        "codigo_lancamento_integracao": 4203566,
+        "codigo_cliente_fornecedor": "0",
+        "data_vencimento": "13/03/2025",
+        "valor_documento": 5500,
+        "codigo_categoria": "2.01.77",
+        "data_previsao": "13/03/2025",
+        "id_conta_corrente": 7119131819
+      },
+      "erro": "Erro ao enviar conta 4203566: ERROR: É obrigatório o preenchimento das tags [codigo_cliente_fornecedor] ou [codigo_cliente_fornecedor_integracao]!"
+    }
+  ]
+}

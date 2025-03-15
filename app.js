@@ -8,13 +8,15 @@ const contasCorrentesRoutes = require("./routes/contasCorrenteRoutes");
 const contasAPagarRoutes = require("./routes/contasAPagarRoutes");
 
 const app = express();
+
 app.use(express.json());
 app.use(cors());
 
 // Rotas
 app.use("/api/departamentos", departamentosRoutes);
-app.use("/api/contas-correntes", contasCorrentesRoutes);
+app.use("/api/contasCorrentes", contasCorrentesRoutes);
 app.use("/api/contaspagar", contasAPagarRoutes);
+app.use("/api/fornecedores", contasAPagarRoutes);
  
 // Configuração SSL
 const sslOptions = {
