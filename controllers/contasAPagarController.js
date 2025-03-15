@@ -1,16 +1,19 @@
 
 const axios = require("axios");
-const https = require("https"); 
-const { aguardarEnter } = require("../utilitarios/readlineHelper");
-const { salvarLog } = require("../utilitarios/logService"); 
-const { esperar, formatarData } = require("../utilitarios/auxiliares");
+const https = require("https");  
+const { formatarData } = require("../utilitarios/auxiliares");
+const { salvarLog } = require("../utilitarios/logService");
 const { gerarPayload } = require("../utilitarios/payloads");
 const { buscarContasPagarRM } = require("../services/rmService");  
-const { buscarCategoriasOmie, buscarCodigoContaCorrente, buscarClienteOmie  } = require("../services/omieService");  
+const { buscarCategoriasOmie, 
+    buscarCodigoContaCorrente, 
+    buscarClienteOmie,
+    enviarParaOmieBaixadas,
+    enviarParaOmieNaoBaixadas  } = require("../services/omieService");  
 
-const OMIE_APP_KEY = process.env.OMIE_APP_KEY;
-const OMIE_APP_SECRET = process.env.OMIE_APP_SECRET;
-const OMIE_URL = "https://app.omie.com.br/api/v1/financas/contapagar/";   
+    const OMIE_APP_KEY = process.env.OMIE_APP_KEY;
+    const OMIE_APP_SECRET = process.env.OMIE_APP_SECRET;
+    const OMIE_URL = "https://app.omie.com.br/api/v1/financas/contapagar/";   
    
     const agent = new https.Agent({ keepAlive: true, minVersion: "TLSv1.2" });
     const headers = {
@@ -32,6 +35,7 @@ const OMIE_URL = "https://app.omie.com.br/api/v1/financas/contapagar/";
         }
     }
  
+
     async function incluirContaPagar(req, res) { 
         dataDeVencimento = "13/03/2025"
 
@@ -39,6 +43,10 @@ const OMIE_URL = "https://app.omie.com.br/api/v1/financas/contapagar/";
             const contasRM = await buscarContasPagarRM(dataDeVencimento);  
             const categoriasOmie = await buscarCategoriasOmie();    
             const codigoPadrao = "2.02.99";  
+
+                
+            const contasBaixadas = [];
+            const contasNaoBaixadas = [];
             
 
             for (let conta of contasRM) {  
@@ -51,71 +59,53 @@ const OMIE_URL = "https://app.omie.com.br/api/v1/financas/contapagar/";
                 }  
                 console.log("Código Consolidado: ", codigoConta)
 
-                //ACHAR A CATEGORIA 
+                //ACHA A CATEGORIA 
                 console.log('CATEGORIA: ', conta.codigo_categoria)
                 const categoriaEncontrada = categoriasOmie.find(cat => cat.descricao === conta.codigo_categoria);
                 conta.codigo_categoria = categoriaEncontrada ? categoriaEncontrada.codigo : codigoPadrao; 
-            } 
-      
-        const contasFormatadas = contasRM.map(conta => {  
-            return {
-                ...conta,
-                data_vencimento: formatarData(conta.data_vencimento),
-                data_previsao: formatarData(conta.data_previsao),
-            };
-        });
-        
-        console.log("📦 Contas formatadas antes do envio:", JSON.stringify(contasFormatadas, null, 2));
-        console.log("Finalizado") 
+                  
+                //FORMATA DATAS
+                conta.data_vencimento = formatarData(conta.data_vencimento)  
+                conta.data_previsao = formatarData(conta.data_previsao)
+                conta.data_baixa = formatarData(conta.data_baixa)
+ 
+                // SEPARA CONTAS BAIXADAS DAS NÃO BAIXADAS
+                console.log(conta.statuslan)
+                if (conta.statuslan == 1) {
+                    console.log("✅ Conta paga identificada.");
+                    contasBaixadas.push(conta);
+                } else {
+                    console.log("⚠️ Conta não paga identificada.");
+                    contasNaoBaixadas.push(conta);
+                }
+            }  
+            
+            console.log(`📌 Total de contas baixadas: ${contasBaixadas.length}`);
+            console.log(`📌 Total de contas não baixadas: ${contasNaoBaixadas.length}`);
+ 
+        // Envia separadamente as duas listas
+        const resultadosBaixadas = await enviarParaOmieBaixadas(contasBaixadas);  
+        const resultadosNaoBaixadas = await enviarParaOmieNaoBaixadas(contasNaoBaixadas);
 
-        const resultados = await enviarParaOmie(contasFormatadas);
-        res.json({ mensagem: "Contas a pagar enviadas com sucesso!", contas_pagar: resultados });
+        salvarLog("log_contas_baixadas", resultadosBaixadas.sucesso, resultadosBaixadas.erros); 
+        salvarLog("log_contas_nao_baixadas", resultadosNaoBaixadas.sucesso, resultadosNaoBaixadas.erros); 
+
+
+       // const resultados = await enviarParaOmie(contasFormatadas); 
+        res.json({ 
+            mensagem: "Contas a pagar enviadas com sucesso!",
+            baixadas: resultadosBaixadas,
+            nao_baixadas: resultadosNaoBaixadas
+        });
 
     } catch (error) {
       console.error("❌ Erro geral:", error);
           res.status(500).json({ erro: error.message });
-  }
+  
+        } 
     } 
+
     
-    async function enviarParaOmie(contas) {
-        const resultados = [];
-        const sucesso = [];
-        const erros = [];
-
-            console.log("📦 Contas formatadas antes do envio:", JSON.stringify(contas, null, 2)); 
-
-        for (const conta of contas) {
-            try {
-                await esperar(1000); 
-
-                console.log("\n🔍 PRÓXIMA CONTA A SER ENVIADA:");
-                console.log(JSON.stringify(conta, null, 2));
- 
-                await aguardarEnter();
-
-                const payload = gerarPayload("UpsertContaPagar", [conta]);
- 
-                console.log(` Enviando conta: ${conta.codigo_lancamento_integracao}`);
-                const response = await axios.post(OMIE_URL, payload, {
-                    headers: headers,
-                    httpsAgent: agent,
-                }); 
     
-                console.log(`✅ Conta "${conta.codigo_lancamento_integracao}" enviada com sucesso!`);
-                sucesso.push(conta);
-                resultados.push(response.data);
-            } catch (error) {
-                const mensagemErro = `Erro ao enviar conta ${conta.codigo_lancamento_integracao}: ${error.response?.data?.faultstring || error.message}`;
-                console.error(`❌ ${mensagemErro}`);
-                erros.push({ conta, erro: mensagemErro });
-            }
-        }
-
-        rl.close(); 
-
-        // CRIAR ARQUIVO LOG DE ENVIO
-        salvarLog("log_contas", sucesso, erros); 
-        return resultados;
-    } 
 
 module.exports = { listarContasAPagar, incluirContaPagar };

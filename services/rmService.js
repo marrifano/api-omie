@@ -31,6 +31,7 @@ async function buscarContasPagarRM(dataVencimento) {
                         L.VALORMULTABX AS multa,
                         L.DATABAIXA AS data_baixa,
                         L.HISTORICO AS observacao
+                        
                     FROM FLAN L    
                         LEFT JOIN GFILIAL F ON L.CODCOLIGADA = F.CODCOLIGADA AND L.CODFILIAL = F.CODFILIAL
                         LEFT JOIN FCFO C ON L.CODCFO = C.CODCFO 

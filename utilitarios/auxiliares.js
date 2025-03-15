@@ -1,4 +1,10 @@
-const readline = require("readline");
+const readline = require('readline');
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+  
 
 function esperar(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -23,18 +29,14 @@ function formatarData(data) {
     const ano = data.getUTCFullYear();
 
     return `${dia}/${mes}/${ano}`; 
-}
+} 
 
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
-
-async function aguardarEnter() {
+function aguardarEnter() {
     return new Promise(resolve => {
-        rl.question("⏳ Pressione ENTER para enviar este registro...", () => resolve());
+      rl.question('Aperta [ENTER] pra continuar...', () => resolve());
     });
-}
+  }
+  
 
 
 module.exports = { esperar, formatarData, aguardarEnter };

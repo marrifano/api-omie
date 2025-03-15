@@ -1,0 +1,39 @@
+{
+  "sucesso": [
+    {
+      "codigo_lancamento_integracao": 4201968,
+      "codigo_cliente_fornecedor": 7118611459,
+      "data_vencimento": "12/03/2025",
+      "valor_documento": 3,
+      "codigo_categoria": "2.02.99",
+      "data_previsao": "06/03/2025",
+      "id_conta_corrente": 7126002202,
+      "statuslan": 0,
+      "valor_baixado": 0,
+      "codigo_baixa_integracao": 4201968,
+      "desconto": 0,
+      "juros": 0,
+      "multa": 0,
+      "data_baixa": null,
+      "observacao": "Ref. a entrega de assinaturas do Jornal Amazônia, no período de 01 a 28/02/2025."
+    },
+    {
+      "codigo_lancamento_integracao": 4201967,
+      "codigo_cliente_fornecedor": 7118611459,
+      "data_vencimento": "12/03/2025",
+      "valor_documento": 133,
+      "codigo_categoria": "2.02.99",
+      "data_previsao": "06/03/2025",
+      "id_conta_corrente": 7126002202,
+      "statuslan": 0,
+      "valor_baixado": 0,
+      "codigo_baixa_integracao": 4201967,
+      "desconto": 0,
+      "juros": 0,
+      "multa": 0,
+      "data_baixa": null,
+      "observacao": "Ref. a entrega de assinaturas do Jornal O Liberal, no período de 01 a 28/02/2025."
+    }
+  ],
+  "erros": []
+}
