@@ -99,48 +99,9 @@ const headers = {
             console.error(`❌ Erro ao buscar cliente ${codigoClienteRM}:`, error.response?.data || error.message);
             return null;
         }
-    }
-/* 
-    async function enviarParaOmie(contas) {
-    console.log("Enviar arquivo, acessado")
-    const resultados = [];
-    const sucesso = [];
-    const erros = [];
-
-        console.log("📦 Contas formatadas antes do envio:", JSON.stringify(contas, null, 2)); 
-
-    for (const conta of contas) {
-        try {
-            await esperar(1000); 
-
-            console.log("\n🔍 PRÓXIMA CONTA A SER ENVIADA:");
-            console.log(JSON.stringify(conta, null, 2));
-
-            await aguardarEnter();
-
-            const payload = gerarPayload("UpsertContaPagar", [conta]);
-
-            console.log(` Enviando conta: ${conta.codigo_lancamento_integracao}`);
-            const response = await axios.post(OMIE_URL, payload, {
-                headers: headers,
-                httpsAgent: agent,
-            }); 
-
-            console.log(`✅ Conta "${conta.codigo_lancamento_integracao}" enviada com sucesso!`);
-            sucesso.push(conta);
-            resultados.push(response.data);
-        } catch (error) {
-            const mensagemErro = `Erro ao enviar conta ${conta.codigo_lancamento_integracao}: ${error.response?.data?.faultstring || error.message}`;
-            console.error(`❌ ${mensagemErro}`);
-            erros.push({ conta, erro: mensagemErro });
-        }
-    }
- 
-    // CRIAR ARQUIVO LOG DE ENVIO
-    salvarLog("log_contas", sucesso, erros); 
-    return resultados;
     } 
-*/   
+
+    
     async function enviarParaOmieBaixadas(contas) { 
         const resultados = [];
         const sucesso = [];

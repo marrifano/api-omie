@@ -1,0 +1,26 @@
+📅 Log de execução - 15/03/2025, 17:41:26
+
+✅ Contas enviadas com sucesso: 19
+  - 40368 | Valor: 2500
+  - 40362 | Valor: 2600
+  - 656865 | Valor: 9099.03
+  - 656954 | Valor: 4498.38
+  - 656861 | Valor: 944.18
+  - 656968 | Valor: 3621.56
+  - 656956 | Valor: 2091.67
+  - 39941 | Valor: 2500
+  - 39947 | Valor: 2500
+  - 40356 | Valor: 2600
+  - 657285 | Valor: 77659.54
+  - 656953 | Valor: 1394.66
+  - 656862 | Valor: 944.18
+  - 658429 | Valor: 2500
+  - 656860 | Valor: 2817.59
+  - 656955 | Valor: 8900.03
+  - 40369 | Valor: 3000
+  - 656967 | Valor: 272.96
+  - 657451 | Valor: 35.28
+
+❌ Contas com erro: 2
+  - 657978 | Erro: Erro ao enviar conta 657978: ERROR: É obrigatório o preenchimento das tags [codigo_cliente_fornecedor] ou [codigo_cliente_fornecedor_integracao]!
+  - 658475 | Erro: Erro ao enviar conta 658475: ERROR: É obrigatório o preenchimento das tags [codigo_cliente_fornecedor] ou [codigo_cliente_fornecedor_integracao]!
