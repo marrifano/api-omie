@@ -1,0 +1,55 @@
+📅 Log de execução - 17/03/2025, 14:27:15
+
+✅ Contas enviadas com sucesso: 47
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+
+❌ Contas com erro: 3
+  - 4204042 | Erro: Erro ao enviar conta 4204042: ERROR: O valor do pagamento deve ser menor ou igual ao total a pagar da conta.Valor do pagamento: R$ 6.017,08.Total a pagar da conta: R$ 6.000,00
+  - 40419 | Erro: Erro ao enviar conta 40419: ERROR: O valor do pagamento deve ser menor ou igual ao total a pagar da conta.Valor do pagamento: R$ 11.056,50.Total a pagar da conta: R$ 10.000,00
+  - 4204030 | Erro: Erro ao enviar conta 4204030: ERROR: O valor do pagamento deve ser menor ou igual ao total a pagar da conta.Valor do pagamento: R$ 7.161,81.Total a pagar da conta: R$ 6.750,00

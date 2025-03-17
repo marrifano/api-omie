@@ -27,7 +27,7 @@ const { buscarCategoriasOmie,
             const payload = gerarPayload("ListarContasPagar", [{ "pagina": 1, "registros_por_pagina": 500, "apenas_importado_api": "N" }]);    
             console.log("🔍 Buscando contas a pagar..."); 
 
-            const response = await axios.post(OMIE_URL, payload, { headers, httpsAgent: agent }); 
+            const response = await axios.post(OMIE_URL, payload, { headers, httpsAgent: agent,  timeout: 15000 }); 
             res.json({ mensagem: "Contas a pagar listadas com sucesso!", contas_correntes: response.data }); 
         } catch (error) {
             console.error("❌ Erro ao listar contas a pagar:", error.message);
@@ -37,30 +37,30 @@ const { buscarCategoriasOmie,
  
 
     async function incluirContaPagar(req, res) { 
-        dataDeVencimento = "13/03/2025"
 
-      try { 
+      try {  
+            dataDeVencimento = req.query.data
+
             const contasRM = await buscarContasPagarRM(dataDeVencimento);  
             const categoriasOmie = await buscarCategoriasOmie();    
             const codigoPadrao = "2.02.99";  
-
-                
+ 
             const contasBaixadas = [];
             const contasNaoBaixadas = [];
             
 
-            for (let conta of contasRM) {  
-                conta.codigo_cliente_fornecedor = await buscarClienteOmie(conta.codigo_cliente_fornecedor) || "0"; //ACHAR CLIENTE.  
+            for (let conta of contasRM) {   
+                conta.codigo_cliente_fornecedor = await buscarClienteOmie(conta.codigo_cliente_fornecedor); //ACHAR CLIENTE.
+                console.log("📌 Codigo do cliente utilizado2:", conta.codigo_cliente_fornecedor)  
                 const codigoConta = await buscarCodigoContaCorrente(conta.id_conta_corrente); //ACHAR CONTA CORRENTE.
         
                 if (codigoConta) {
                     console.log(`Substituindo id, da conta corrente ${conta.id_conta_corrente}  por: ${codigoConta}`)
                     conta.id_conta_corrente = codigoConta;
-                }  
-                console.log("Código Consolidado: ", codigoConta)
+                }   
 
                 //ACHA A CATEGORIA 
-                console.log('CATEGORIA: ', conta.codigo_categoria)
+                console.log('🔍 Buscando código da categoria: ', conta.codigo_categoria)
                 const categoriaEncontrada = categoriasOmie.find(cat => cat.descricao === conta.codigo_categoria);
                 conta.codigo_categoria = categoriaEncontrada ? categoriaEncontrada.codigo : codigoPadrao; 
                   
@@ -69,10 +69,9 @@ const { buscarCategoriasOmie,
                 conta.data_previsao = formatarData(conta.data_previsao)
                 conta.data_baixa = formatarData(conta.data_baixa)
  
-                // SEPARA CONTAS BAIXADAS DAS NÃO BAIXADAS
-                console.log(conta.statuslan)
+                // SEPARA CONTAS BAIXADAS DAS NÃO BAIXADAS 
                 if (conta.statuslan == 1) {
-                    console.log("✅ Conta paga identificada.");
+                    console.log("✅ Conta paga identificada. ");
                     contasBaixadas.push(conta);
                 } else {
                     console.log("⚠️ Conta não paga identificada.");
@@ -84,11 +83,11 @@ const { buscarCategoriasOmie,
             console.log(`📌 Total de contas não baixadas: ${contasNaoBaixadas.length}`);
  
         // Envia separadamente as duas listas
-        const resultadosBaixadas = await enviarParaOmieBaixadas(contasBaixadas);  
         const resultadosNaoBaixadas = await enviarParaOmieNaoBaixadas(contasNaoBaixadas);
+        const resultadosBaixadas = await enviarParaOmieBaixadas(contasBaixadas);  
 
-        salvarLog("log_contas_baixadas", resultadosBaixadas.sucesso, resultadosBaixadas.erros); 
         salvarLog("log_contas_nao_baixadas", resultadosNaoBaixadas.sucesso, resultadosNaoBaixadas.erros); 
+        salvarLog("log_contas_baixadas", resultadosBaixadas.sucesso, resultadosBaixadas.erros); 
 
 
        // const resultados = await enviarParaOmie(contasFormatadas); 

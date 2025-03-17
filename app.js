@@ -15,8 +15,7 @@ app.use(cors());
 // Rotas
 app.use("/api/departamentos", departamentosRoutes);
 app.use("/api/contasCorrentes", contasCorrentesRoutes);
-app.use("/api/contaspagar", contasAPagarRoutes);
-app.use("/api/fornecedores", contasAPagarRoutes);
+app.use("/api/contaspagar", contasAPagarRoutes); 
  
 // Configuração SSL
 const sslOptions = {

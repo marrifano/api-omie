@@ -1,0 +1,85 @@
+{
+  "sucesso": [],
+  "erros": [
+    {
+      "conta": {
+        "codigo_lancamento_integracao": "10658436",
+        "codigo_cliente_fornecedor": 7117401156,
+        "data_vencimento": "12/03/2025",
+        "valor_documento": 1020,
+        "codigo_categoria": "2.01.81",
+        "data_previsao": "12/03/2025",
+        "id_conta_corrente": 7119132098,
+        "statuslan": 1,
+        "valor_baixado": 1020,
+        "codigo_baixa_integracao": "10658436",
+        "desconto": 0,
+        "juros": 0,
+        "multa": 0,
+        "data_baixa": "12/03/2025",
+        "observacao": "Ref. Tarifas"
+      },
+      "erro": "Erro ao enviar conta 10658436: ERROR: Título de contas a pagar [0] já está pago!"
+    },
+    {
+      "conta": {
+        "codigo_lancamento_integracao": "10658435",
+        "codigo_cliente_fornecedor": 7118685003,
+        "data_vencimento": "12/03/2025",
+        "valor_documento": 710,
+        "codigo_categoria": "2.01.86",
+        "data_previsao": "12/03/2025",
+        "id_conta_corrente": 7119132098,
+        "statuslan": 1,
+        "valor_baixado": 710,
+        "codigo_baixa_integracao": "10658435",
+        "desconto": 0,
+        "juros": 0,
+        "multa": 0,
+        "data_baixa": "12/03/2025",
+        "observacao": "Ref. Despesas com Viagem - ODV - Hospedagem/Alimentação - 12/03 em São Felix do Xingu - Cidade em estado de emergencia por chuva."
+      },
+      "erro": "Erro ao enviar conta 10658435: ERROR: Título de contas a pagar [0] já está pago!"
+    },
+    {
+      "conta": {
+        "codigo_lancamento_integracao": "154203211",
+        "codigo_cliente_fornecedor": 7118557583,
+        "data_vencimento": "12/03/2025",
+        "valor_documento": 46914.49,
+        "codigo_categoria": "2.01.75",
+        "data_previsao": "12/03/2025",
+        "id_conta_corrente": 7119132119,
+        "statuslan": 1,
+        "valor_baixado": 46914.49,
+        "codigo_baixa_integracao": "154203211",
+        "desconto": 0,
+        "juros": 0,
+        "multa": 0,
+        "data_baixa": "12/03/2025",
+        "observacao": "Ref. multa 40% FGTS Rescisão Contrato de Trabalho"
+      },
+      "erro": "Erro ao enviar conta 154203211: ERROR: Título de contas a pagar [0] já está pago!"
+    },
+    {
+      "conta": {
+        "codigo_lancamento_integracao": "10658422",
+        "codigo_cliente_fornecedor": 7117805397,
+        "data_vencimento": "12/03/2025",
+        "valor_documento": 14500.92,
+        "codigo_categoria": "2.01.86",
+        "data_previsao": "12/03/2025",
+        "id_conta_corrente": 7119132098,
+        "statuslan": 1,
+        "valor_baixado": 14500.92,
+        "codigo_baixa_integracao": "10658422",
+        "desconto": 0,
+        "juros": 0,
+        "multa": 0,
+        "data_baixa": "12/03/2025",
+        "observacao": "Ref. Passagem E Hospedagem - Rosemary Maiorana"
+      },
+      "erro": "Erro ao enviar conta 10658422: ERROR: Título de contas a pagar [0] já está pago!"
+    }
+  ]
+}

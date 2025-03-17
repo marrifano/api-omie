@@ -1,0 +1,1100 @@
+{
+  "sucesso": [
+    {
+      "conta": {
+        "codigo_lancamento": 7127790700,
+        "codigo_lancamento_integracao": "40416",
+        "codigo_baixa": 7127790736,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 2500,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127790700,
+        "codigo_lancamento_integracao": "40416",
+        "codigo_baixa": 7127790736,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 2500,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127790795,
+        "codigo_lancamento_integracao": "4204044",
+        "codigo_baixa": 7127790823,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 10000,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127790795,
+        "codigo_lancamento_integracao": "4204044",
+        "codigo_baixa": 7127790823,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 10000,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127790870,
+        "codigo_lancamento_integracao": "4203995",
+        "codigo_baixa": 7127790900,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 297,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127790870,
+        "codigo_lancamento_integracao": "4203995",
+        "codigo_baixa": 7127790900,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 297,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127790991,
+        "codigo_lancamento_integracao": "658183",
+        "codigo_baixa": 7127791059,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 1059.54,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127790991,
+        "codigo_lancamento_integracao": "658183",
+        "codigo_baixa": 7127791059,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 1059.54,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127791180,
+        "codigo_lancamento_integracao": "40413",
+        "codigo_baixa": 7127791227,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 2500,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127791180,
+        "codigo_lancamento_integracao": "40413",
+        "codigo_baixa": 7127791227,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 2500,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127791286,
+        "codigo_lancamento_integracao": "40411",
+        "codigo_baixa": 7127791323,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 2500,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127791286,
+        "codigo_lancamento_integracao": "40411",
+        "codigo_baixa": 7127791323,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 2500,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127791332,
+        "codigo_lancamento_integracao": "40369",
+        "codigo_baixa": 7127791338,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 3000,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127791332,
+        "codigo_lancamento_integracao": "40369",
+        "codigo_baixa": 7127791338,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 3000,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127791349,
+        "codigo_lancamento_integracao": "4204037",
+        "codigo_baixa": 7127791364,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 3500,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127791349,
+        "codigo_lancamento_integracao": "4204037",
+        "codigo_baixa": 7127791364,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 3500,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127791381,
+        "codigo_lancamento_integracao": "4201743",
+        "codigo_baixa": 7127791384,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 4500,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127791381,
+        "codigo_lancamento_integracao": "4201743",
+        "codigo_baixa": 7127791384,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 4500,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127791396,
+        "codigo_lancamento_integracao": "4201526",
+        "codigo_baixa": 7127791404,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 4000,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127791396,
+        "codigo_lancamento_integracao": "4201526",
+        "codigo_baixa": 7127791404,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 4000,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127791413,
+        "codigo_lancamento_integracao": "4201544",
+        "codigo_baixa": 7127791416,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 6500,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127791413,
+        "codigo_lancamento_integracao": "4201544",
+        "codigo_baixa": 7127791416,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 6500,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127791428,
+        "codigo_lancamento_integracao": "4201791",
+        "codigo_baixa": 7127791433,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 166,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127791428,
+        "codigo_lancamento_integracao": "4201791",
+        "codigo_baixa": 7127791433,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 166,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127791438,
+        "codigo_lancamento_integracao": "4204040",
+        "codigo_baixa": 7127791441,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 2500,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127791438,
+        "codigo_lancamento_integracao": "4204040",
+        "codigo_baixa": 7127791441,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 2500,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127791450,
+        "codigo_lancamento_integracao": "4204049",
+        "codigo_baixa": 7127791461,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 13000,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127791450,
+        "codigo_lancamento_integracao": "4204049",
+        "codigo_baixa": 7127791461,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 13000,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127791467,
+        "codigo_lancamento_integracao": "4204010",
+        "codigo_baixa": 7127791470,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 129.98,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127791467,
+        "codigo_lancamento_integracao": "4204010",
+        "codigo_baixa": 7127791470,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 129.98,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127791478,
+        "codigo_lancamento_integracao": "4191289",
+        "codigo_baixa": 7127791496,
+        "codigo_baixa_integracao": "",
+        "liquidado": "N",
+        "valor_baixado": 2200.09,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127791478,
+        "codigo_lancamento_integracao": "4191289",
+        "codigo_baixa": 7127791496,
+        "codigo_baixa_integracao": "",
+        "liquidado": "N",
+        "valor_baixado": 2200.09,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127791514,
+        "codigo_lancamento_integracao": "301833",
+        "codigo_baixa": 7127791518,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 2387.21,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127791514,
+        "codigo_lancamento_integracao": "301833",
+        "codigo_baixa": 7127791518,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 2387.21,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127791530,
+        "codigo_lancamento_integracao": "40417",
+        "codigo_baixa": 7127791540,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 3000,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127791530,
+        "codigo_lancamento_integracao": "40417",
+        "codigo_baixa": 7127791540,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 3000,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127791551,
+        "codigo_lancamento_integracao": "4204075",
+        "codigo_baixa": 7127791559,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 3000,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127791551,
+        "codigo_lancamento_integracao": "4204075",
+        "codigo_baixa": 7127791559,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 3000,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127791571,
+        "codigo_lancamento_integracao": "4204015",
+        "codigo_baixa": 7127791576,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 3000,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127791571,
+        "codigo_lancamento_integracao": "4204015",
+        "codigo_baixa": 7127791576,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 3000,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127791598,
+        "codigo_lancamento_integracao": "4204069",
+        "codigo_baixa": 7127791603,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 180,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127791598,
+        "codigo_lancamento_integracao": "4204069",
+        "codigo_baixa": 7127791603,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 180,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127791631,
+        "codigo_lancamento_integracao": "4204039",
+        "codigo_baixa": 7127791636,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 2500,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127791631,
+        "codigo_lancamento_integracao": "4204039",
+        "codigo_baixa": 7127791636,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 2500,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127791645,
+        "codigo_lancamento_integracao": "4203993",
+        "codigo_baixa": 7127791665,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 15000,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127791645,
+        "codigo_lancamento_integracao": "4203993",
+        "codigo_baixa": 7127791665,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 15000,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127791703,
+        "codigo_lancamento_integracao": "40414",
+        "codigo_baixa": 7127791727,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 3000,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127791703,
+        "codigo_lancamento_integracao": "40414",
+        "codigo_baixa": 7127791727,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 3000,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127791829,
+        "codigo_lancamento_integracao": "40415",
+        "codigo_baixa": 7127791889,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 1500,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127791829,
+        "codigo_lancamento_integracao": "40415",
+        "codigo_baixa": 7127791889,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 1500,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127791959,
+        "codigo_lancamento_integracao": "40412",
+        "codigo_baixa": 7127791992,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 6026.67,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127791959,
+        "codigo_lancamento_integracao": "40412",
+        "codigo_baixa": 7127791992,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 6026.67,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127792082,
+        "codigo_lancamento_integracao": "40418",
+        "codigo_baixa": 7127792129,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 3000,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127792082,
+        "codigo_lancamento_integracao": "40418",
+        "codigo_baixa": 7127792129,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 3000,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127792205,
+        "codigo_lancamento_integracao": "4204076",
+        "codigo_baixa": 7127792256,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 408.78,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127792205,
+        "codigo_lancamento_integracao": "4204076",
+        "codigo_baixa": 7127792256,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 408.78,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127792357,
+        "codigo_lancamento_integracao": "301802",
+        "codigo_baixa": 7127792378,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 3000,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127792357,
+        "codigo_lancamento_integracao": "301802",
+        "codigo_baixa": 7127792378,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 3000,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127792472,
+        "codigo_lancamento_integracao": "4204078",
+        "codigo_baixa": 7127792508,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 7659.4,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127792472,
+        "codigo_lancamento_integracao": "4204078",
+        "codigo_baixa": 7127792508,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 7659.4,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127792584,
+        "codigo_lancamento_integracao": "4204077",
+        "codigo_baixa": 7127792623,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 11950.26,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127792584,
+        "codigo_lancamento_integracao": "4204077",
+        "codigo_baixa": 7127792623,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 11950.26,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127792717,
+        "codigo_lancamento_integracao": "4201545",
+        "codigo_baixa": 7127792776,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 20000,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127792717,
+        "codigo_lancamento_integracao": "4201545",
+        "codigo_baixa": 7127792776,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 20000,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127792928,
+        "codigo_lancamento_integracao": "301799",
+        "codigo_baixa": 7127792974,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 4017.41,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127792928,
+        "codigo_lancamento_integracao": "301799",
+        "codigo_baixa": 7127792974,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 4017.41,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127792990,
+        "codigo_lancamento_integracao": "40421",
+        "codigo_baixa": 7127792993,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 166.2,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127792990,
+        "codigo_lancamento_integracao": "40421",
+        "codigo_baixa": 7127792993,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 166.2,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127792996,
+        "codigo_lancamento_integracao": "40362",
+        "codigo_baixa": 7127793006,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 2600,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127792996,
+        "codigo_lancamento_integracao": "40362",
+        "codigo_baixa": 7127793006,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 2600,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127793014,
+        "codigo_lancamento_integracao": "4204043",
+        "codigo_baixa": 7127793039,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 2000,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127793014,
+        "codigo_lancamento_integracao": "4204043",
+        "codigo_baixa": 7127793039,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 2000,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127793060,
+        "codigo_lancamento_integracao": "4204009",
+        "codigo_baixa": 7127793063,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 750,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127793060,
+        "codigo_lancamento_integracao": "4204009",
+        "codigo_baixa": 7127793063,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 750,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127793074,
+        "codigo_lancamento_integracao": "4198131",
+        "codigo_baixa": 7127793081,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 3000,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127793074,
+        "codigo_lancamento_integracao": "4198131",
+        "codigo_baixa": 7127793081,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 3000,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127793090,
+        "codigo_lancamento_integracao": "4201717",
+        "codigo_baixa": 7127793094,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 3700,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127793090,
+        "codigo_lancamento_integracao": "4201717",
+        "codigo_baixa": 7127793094,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 3700,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127793101,
+        "codigo_lancamento_integracao": "301834",
+        "codigo_baixa": 7127793104,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 16.53,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127793101,
+        "codigo_lancamento_integracao": "301834",
+        "codigo_baixa": 7127793104,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 16.53,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127793118,
+        "codigo_lancamento_integracao": "40420",
+        "codigo_baixa": 7127793124,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 372.72,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127793118,
+        "codigo_lancamento_integracao": "40420",
+        "codigo_baixa": 7127793124,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 372.72,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127793132,
+        "codigo_lancamento_integracao": "40368",
+        "codigo_baixa": 7127793136,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 2500,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127793132,
+        "codigo_lancamento_integracao": "40368",
+        "codigo_baixa": 7127793136,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 2500,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127793151,
+        "codigo_lancamento_integracao": "4203996",
+        "codigo_baixa": 7127793189,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 4796.84,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127793151,
+        "codigo_lancamento_integracao": "4203996",
+        "codigo_baixa": 7127793189,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 4796.84,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127793283,
+        "codigo_lancamento_integracao": "4204045",
+        "codigo_baixa": 7127793321,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 1900,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127793283,
+        "codigo_lancamento_integracao": "4204045",
+        "codigo_baixa": 7127793321,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 1900,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127793395,
+        "codigo_lancamento_integracao": "4204038",
+        "codigo_baixa": 7127793438,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 5045.34,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127793395,
+        "codigo_lancamento_integracao": "4204038",
+        "codigo_baixa": 7127793438,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 5045.34,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127793523,
+        "codigo_lancamento_integracao": "4204073",
+        "codigo_baixa": 7127793583,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 5600,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127793523,
+        "codigo_lancamento_integracao": "4204073",
+        "codigo_baixa": 7127793583,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 5600,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento": 7127793710,
+        "codigo_lancamento_integracao": "4204041",
+        "codigo_baixa": 7127793755,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 3500,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento": 7127793710,
+        "codigo_lancamento_integracao": "4204041",
+        "codigo_baixa": 7127793755,
+        "codigo_baixa_integracao": "",
+        "liquidado": "S",
+        "valor_baixado": 3500,
+        "codigo_status": "0",
+        "descricao_status": "Baixa executada com sucesso!"
+      }
+    }
+  ],
+  "erros": [
+    {
+      "conta": {
+        "codigo_lancamento_integracao": 4204042,
+        "codigo_cliente_fornecedor": 7115921543,
+        "data_vencimento": "11/03/2025",
+        "valor_documento": 6000,
+        "codigo_categoria": "2.01.32",
+        "data_previsao": "11/03/2025",
+        "id_conta_corrente": 7119131797,
+        "statuslan": 1,
+        "valor_baixado": 5982.92,
+        "codigo_baixa_integracao": 4204042,
+        "desconto": 17.08,
+        "juros": 0,
+        "multa": 0,
+        "data_baixa": "11/03/2025",
+        "observacao": "Ref. Serviços Prestados - Produtora"
+      },
+      "erro": "Erro ao enviar conta 4204042: ERROR: O valor do pagamento deve ser menor ou igual ao total a pagar da conta.Valor do pagamento: R$ 6.017,08.Total a pagar da conta: R$ 6.000,00"
+    },
+    {
+      "conta": {
+        "codigo_lancamento_integracao": 40419,
+        "codigo_cliente_fornecedor": 7118717317,
+        "data_vencimento": "11/03/2025",
+        "valor_documento": 10000,
+        "codigo_categoria": "2.01.32",
+        "data_previsao": "11/03/2025",
+        "id_conta_corrente": 7119131286,
+        "statuslan": 1,
+        "valor_baixado": 8943.5,
+        "codigo_baixa_integracao": 40419,
+        "desconto": 1056.5,
+        "juros": 0,
+        "multa": 0,
+        "data_baixa": "11/03/2025",
+        "observacao": "Ref. Serviços prestados - 1ª  quinz"
+      },
+      "erro": "Erro ao enviar conta 40419: ERROR: O valor do pagamento deve ser menor ou igual ao total a pagar da conta.Valor do pagamento: R$ 11.056,50.Total a pagar da conta: R$ 10.000,00"
+    },
+    {
+      "conta": {
+        "codigo_lancamento_integracao": 4204030,
+        "codigo_cliente_fornecedor": 7115945682,
+        "data_vencimento": "11/03/2025",
+        "valor_documento": 6750,
+        "codigo_categoria": "2.01.32",
+        "data_previsao": "11/03/2025",
+        "id_conta_corrente": 7119131797,
+        "statuslan": 1,
+        "valor_baixado": 6338.19,
+        "codigo_baixa_integracao": 4204030,
+        "desconto": 411.81,
+        "juros": 0,
+        "multa": 0,
+        "data_baixa": "11/03/2025",
+        "observacao": "Ref. serv prestados - Tayna Nogueira - 1ª quinzena"
+      },
+      "erro": "Erro ao enviar conta 4204030: ERROR: O valor do pagamento deve ser menor ou igual ao total a pagar da conta.Valor do pagamento: R$ 7.161,81.Total a pagar da conta: R$ 6.750,00"
+    }
+  ]
+}

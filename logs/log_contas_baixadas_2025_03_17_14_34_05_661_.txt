@@ -1,0 +1,24 @@
+📅 Log de execução - 17/03/2025, 11:34:05
+
+✅ Contas enviadas com sucesso: 18
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+  - undefined | Valor: undefined
+
+❌ Contas com erro: 1
+  - 40419 | Erro: Erro ao enviar conta 40419: ERROR: O valor do pagamento deve ser menor ou igual ao total a pagar da conta.Valor do pagamento: R$ 11.056,50.Total a pagar da conta: R$ 10.000,00

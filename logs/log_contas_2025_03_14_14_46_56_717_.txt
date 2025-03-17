@@ -1,5 +1,0 @@
-📅 Log de execução - 14/03/2025, 11:46:56
-
-✅ Contas enviadas com sucesso: 0
-
-❌ Contas com erro: 0

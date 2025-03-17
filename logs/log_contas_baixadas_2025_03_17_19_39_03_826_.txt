@@ -1,0 +1,6 @@
+📅 Log de execução - 17/03/2025, 16:39:03
+
+✅ Contas enviadas com sucesso: 0
+
+❌ Contas com erro: 1
+  - 154203768 | Erro: Erro ao enviar conta 154203768: ERROR: É obrigatório o preenchimento das tags [codigo_cliente_fornecedor] ou [codigo_cliente_fornecedor_integracao]!

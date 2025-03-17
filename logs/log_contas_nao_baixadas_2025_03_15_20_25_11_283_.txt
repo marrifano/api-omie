@@ -1,7 +1,0 @@
-📅 Log de execução - 15/03/2025, 17:25:11
-
-✅ Contas enviadas com sucesso: 2
-  - 4201968 | Valor: 3
-  - 4201967 | Valor: 133
-
-❌ Contas com erro: 0

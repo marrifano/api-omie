@@ -1,0 +1,278 @@
+{
+  "sucesso": [
+    {
+      "conta": {
+        "codigo_lancamento_omie": 7127679612,
+        "codigo_lancamento_integracao": "40416",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento_omie": 7127679612,
+        "codigo_lancamento_integracao": "40416",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento_omie": 7127679732,
+        "codigo_lancamento_integracao": "4203995",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento_omie": 7127679732,
+        "codigo_lancamento_integracao": "4203995",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento_omie": 7127679840,
+        "codigo_lancamento_integracao": "40413",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento_omie": 7127679840,
+        "codigo_lancamento_integracao": "40413",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento_omie": 7127679954,
+        "codigo_lancamento_integracao": "40411",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento_omie": 7127679954,
+        "codigo_lancamento_integracao": "40411",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento_omie": 7127680031,
+        "codigo_lancamento_integracao": "40369",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento_omie": 7127680031,
+        "codigo_lancamento_integracao": "40369",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento_omie": 7127680151,
+        "codigo_lancamento_integracao": "4201791",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento_omie": 7127680151,
+        "codigo_lancamento_integracao": "4201791",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento_omie": 7127680224,
+        "codigo_lancamento_integracao": "4191289",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento_omie": 7127680224,
+        "codigo_lancamento_integracao": "4191289",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento_omie": 7127680281,
+        "codigo_lancamento_integracao": "40417",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento_omie": 7127680281,
+        "codigo_lancamento_integracao": "40417",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento_omie": 7127680400,
+        "codigo_lancamento_integracao": "4203993",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento_omie": 7127680400,
+        "codigo_lancamento_integracao": "4203993",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento_omie": 7127680469,
+        "codigo_lancamento_integracao": "40414",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento_omie": 7127680469,
+        "codigo_lancamento_integracao": "40414",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento_omie": 7127680513,
+        "codigo_lancamento_integracao": "40415",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento_omie": 7127680513,
+        "codigo_lancamento_integracao": "40415",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento_omie": 7127680584,
+        "codigo_lancamento_integracao": "40412",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento_omie": 7127680584,
+        "codigo_lancamento_integracao": "40412",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento_omie": 7127680697,
+        "codigo_lancamento_integracao": "40418",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento_omie": 7127680697,
+        "codigo_lancamento_integracao": "40418",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento_omie": 7127680770,
+        "codigo_lancamento_integracao": "40421",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento_omie": 7127680770,
+        "codigo_lancamento_integracao": "40421",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento_omie": 7127680869,
+        "codigo_lancamento_integracao": "40362",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento_omie": 7127680869,
+        "codigo_lancamento_integracao": "40362",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento_omie": 7127680982,
+        "codigo_lancamento_integracao": "40420",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento_omie": 7127680982,
+        "codigo_lancamento_integracao": "40420",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento_omie": 7127681053,
+        "codigo_lancamento_integracao": "40368",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento_omie": 7127681053,
+        "codigo_lancamento_integracao": "40368",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      }
+    },
+    {
+      "conta": {
+        "codigo_lancamento_omie": 7127681188,
+        "codigo_lancamento_integracao": "4203996",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      },
+      "pagamento": {
+        "codigo_lancamento_omie": 7127681188,
+        "codigo_lancamento_integracao": "4203996",
+        "codigo_status": "0",
+        "descricao_status": "Lançamento cadastrado com sucesso!"
+      }
+    }
+  ],
+  "erros": [
+    {
+      "conta": {
+        "codigo_lancamento_integracao": 40419,
+        "codigo_cliente_fornecedor": 7118717317,
+        "data_vencimento": "11/03/2025",
+        "valor_documento": 10000,
+        "codigo_categoria": "2.01.32",
+        "data_previsao": "11/03/2025",
+        "id_conta_corrente": 7119131286,
+        "statuslan": 1,
+        "valor_baixado": 8943.5,
+        "codigo_baixa_integracao": 40419,
+        "desconto": 1056.5,
+        "juros": 0,
+        "multa": 0,
+        "data_baixa": "11/03/2025",
+        "observacao": "Ref. Serviços prestados - 1ª  quinz"
+      },
+      "erro": "Erro ao enviar conta 40419: ERROR: O valor do pagamento deve ser menor ou igual ao total a pagar da conta.Valor do pagamento: R$ 11.056,50.Total a pagar da conta: R$ 10.000,00"
+    }
+  ]
+}

@@ -6,7 +6,7 @@ async function buscarContasPagarRM(dataVencimento) {
         connection = await getConnection();
 
         const sql = `SELECT DISTINCT  
-                        L.IDLAN AS codigo_lancamento_integracao,   
+                        L.CODCOLIGADA || L.IDLAN AS codigo_lancamento_integracao,
                         L.CODCFO AS codigo_cliente_fornecedor,
                         L.DATAVENCIMENTO AS data_vencimento,       
                         L.VALORORIGINAL AS valor_documento,
@@ -43,12 +43,14 @@ async function buscarContasPagarRM(dataVencimento) {
                         LEFT JOIN FLANRATCCU NATU ON NATU.CODCCUSTO = CC.CODCCUSTO AND NATU.IDLAN = FBAIXA.IDLAN AND NATU.CODCOLIGADA = L.CODCOLIGADA
                         LEFT JOIN TTBORCAMENTO T ON NATU.CODCOLIGADA = T.CODCOLIGADA AND NATU.CODNATFINANCEIRA = T.CODTBORCAMENTO
                         LEFT JOIN GDEPTO DEPT ON DEPT.CODDEPARTAMENTO = L.CODDEPARTAMENTO AND DEPT.CODCOLIGADA = L.CODCOLIGADA AND L.CODFILIAL = DEPT.CODFILIAL
-                    WHERE 
-                        L.DATAVENCIMENTO = TO_DATE(:dataVencimento, 'DD/MM/YYYY')
+                    WHERE  L.DATAVENCIMENTO = TO_DATE(:dataVencimento, 'DD/MM/YYYY') 
                         AND L.PAGREC = 2 
                         AND L.CODCOLIGADA IN (1, 8, 10, 12, 15, 16, 21)
                         AND L.STATUSLAN IN (0, 1)
-                        AND FBAIXA.DATACANCELBAIXA IS NULL`; 
+                        AND FBAIXA.DATACANCELBAIXA IS NULL
+                        AND L.CODCXA <> '777'  
+                        AND T.DESCRICAO <> 'Transferências entre contas' 
+                        AND L.CODCFO = 'A151510'`; 
 
         console.log(`🔍 Buscando contas a pagar para a data: ${dataVencimento}`);
 
@@ -81,5 +83,78 @@ async function buscarContasPagarRM(dataVencimento) {
         }
     }
 }
+   
+async function buscarDadosClienteRM(codigoClienteRM) {
+    let connection;
+    try {
+        connection = await getConnection();
 
-module.exports = { buscarContasPagarRM };
+        const sql = `
+            SELECT DISTINCT
+                E.CODCFO AS CODIGO_INTEGRACAO,
+                E.NOME AS RAZAO_SOCIAL,
+                E.NOMEFANTASIA,
+                E.CGCCFO AS CNPJ_CPF,
+                E.RUA AS ENDERECO,
+                E.NUMERO,
+                E.BAIRRO,
+                E.COMPLEMENTO,
+                E.CODETD AS ESTADO,
+                E.CIDADE,
+                E.CEP,
+                E.CONTATO,
+                E.EMAIL,
+                E.TELEFONE,
+                E.INSCRESTADUAL,
+                E.INSCRMUNICIPAL,
+                CASE 
+                    WHEN E.RAMOATIV = 1 THEN 'COMERCIO'
+                    WHEN E.RAMOATIV = 3 THEN 'INDÚSTRIA'
+                    WHEN E.RAMOATIV = 16 THEN 'RURAL'
+                    ELSE 'OUTROS'
+                END AS RAMO_ATIVIDADE
+            FROM FCFO E
+            WHERE E.CODCFO = :codigoClienteRM
+        `;
+
+        console.log(`🔍 Buscando dados do cliente RM: ${codigoClienteRM}`);
+ 
+        const result = await connection.execute(sql, { codigoClienteRM: codigoClienteRM });
+
+        if (result.rows.length === 0) {
+            console.warn(`⚠️ Cliente ${codigoClienteRM} não encontrado no RM.`);
+            return null;
+        }
+
+        const row = result.rows[0];
+    
+            return {
+                codigo_integracao: row[0],
+                razao_social: row[1],
+                nome_fantasia: row[2],
+                cnpj_cpf: row[3],
+                endereco: row[4],
+                numero: row[5],
+                bairro: row[6],
+                complemento: row[7],
+                estado: row[8],
+                cidade: row[9],
+                cep: row[10],
+                contato: row[11],
+                email: row[12],
+                telefone: row[13],
+                inscricao_estadual: row[14],
+                inscricao_municipal: row[15],
+                ramo_atividade: row[16]
+            };
+
+    } catch (error) {
+        console.error("❌ Erro ao buscar dados do cliente no RM:", error);
+        return null;
+    } finally {
+        if (connection) await connection.close();
+    }
+}
+
+
+module.exports = { buscarContasPagarRM , buscarDadosClienteRM };

@@ -1,0 +1,9 @@
+📅 Log de execução - 17/03/2025, 16:31:53
+
+✅ Contas enviadas com sucesso: 0
+
+❌ Contas com erro: 4
+  - 10658436 | Erro: Erro ao enviar conta 10658436: ERROR: Título de contas a pagar [0] já está pago!
+  - 10658435 | Erro: Erro ao enviar conta 10658435: ERROR: Título de contas a pagar [0] já está pago!
+  - 154203211 | Erro: Erro ao enviar conta 154203211: ERROR: Título de contas a pagar [0] já está pago!
+  - 10658422 | Erro: Erro ao enviar conta 10658422: ERROR: Título de contas a pagar [0] já está pago!
