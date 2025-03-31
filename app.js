@@ -6,6 +6,7 @@ const cors = require("cors");
 const departamentosRoutes = require("./routes/departamentosRoutes");
 const contasCorrentesRoutes = require("./routes/contasCorrenteRoutes");
 const contasAPagarRoutes = require("./routes/contasAPagarRoutes");
+const validarContasRoutes = require("./routes/validaContasRoutes");
 
 const app = express();
 
@@ -15,7 +16,9 @@ app.use(cors());
 // Rotas
 app.use("/api/departamentos", departamentosRoutes);
 app.use("/api/contasCorrentes", contasCorrentesRoutes);
-app.use("/api/contaspagar", contasAPagarRoutes); 
+app.use("/api/contaspagar", contasAPagarRoutes);  
+
+app.use("/api/validacao", validarContasRoutes); 
  
 // Configuração SSL
 const sslOptions = {

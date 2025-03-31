@@ -15,7 +15,7 @@ async function listarContasAPagarOmie() {
 async function incluirContasPagarNoOmie() {
   const categoriasOmie = await carregarCategoriasOmie();
   const contasRM = await buscarContasPagarRM();
-
+ 
   const codigoPadrao = "0.01.98";
 
   const contasFormatadas = await Promise.all(
@@ -73,50 +73,50 @@ async function incluirContasPagarNoOmie() {
   return resultados;
 }
 
-async function carregarCategoriasOmie() {
-  const payload = omie.gerarPayload("ListarCategorias", [{ pagina: 1, registros_por_pagina: 100 }]);
-  const data = await omie.postOmie(omie.OMIE_URLS.CATEGORIAS, payload);
-  return data.categoria_cadastro || [];
-}
+  async function carregarCategoriasOmie() {
+    const payload = omie.gerarPayload("ListarCategorias", [{ pagina: 1, registros_por_pagina: 100 }]);
+    const data = await omie.postOmie(omie.OMIE_URLS.CATEGORIAS, payload);
+    return data.categoria_cadastro || [];
+  }
 
-async function buscarClienteOmie(codigoClienteRM) {
-  const payload = omie.gerarPayload("ConsultarCliente", [
-    { codigo_cliente_integracao: codigoClienteRM },
-  ]);
-  const data = await omie.postOmie(omie.OMIE_URLS.CLIENTES, payload);
-  return data.codigo_cliente_omie || null;
-}
+  async function buscarClienteOmie(codigoClienteRM) {
+    const payload = omie.gerarPayload("ConsultarCliente", [
+      { codigo_cliente_integracao: codigoClienteRM },
+    ]);
+    const data = await omie.postOmie(omie.OMIE_URLS.CLIENTES, payload);
+    return data.codigo_cliente_omie || null;
+  }
 
-async function buscarCodigoContaCorrente(codigoInterno) {
-  const payload = omie.gerarPayload("ListarContasCorrentes", [{ pagina: 1, registros_por_pagina: 500 }]);
-  const data = await omie.postOmie(omie.OMIE_URLS.CONTAS_CORRENTES, payload);
-  const conta = data.ListarContasCorrentes.find((c) => c.cCodCCInt === codigoInterno);
-  return conta ? conta.nCodCC : null;
-}
+  async function buscarCodigoContaCorrente(codigoInterno) {
+    const payload = omie.gerarPayload("ListarContasCorrentes", [{ pagina: 1, registros_por_pagina: 500 }]);
+    const data = await omie.postOmie(omie.OMIE_URLS.CONTAS_CORRENTES, payload);
+    const conta = data.ListarContasCorrentes.find((c) => c.cCodCCInt === codigoInterno);
+    return conta ? conta.nCodCC : null;
+  }
 
-async function buscarDadosFornecedorRM(codigoFornecedor) {
-  const query = `
-    SELECT DISTINCT E.CODCFO, E.NOME AS RAZAO, E.CGCCFO AS CNPJCPF, E.NOMEFANTASIA, 
-           E.EMAIL
-    FROM FCFO E
-    WHERE E.CODCFO = '${codigoFornecedor}'
-  `;
-  const resultado = await executarQuery(query);
-  return resultado[0] || null;
-}
+  async function buscarDadosFornecedorRM(codigoFornecedor) {
+    const query = `
+      SELECT DISTINCT E.CODCFO, E.NOME AS RAZAO, E.CGCCFO AS CNPJCPF, E.NOMEFANTASIA, 
+            E.EMAIL
+      FROM FCFO E
+      WHERE E.CODCFO = '${codigoFornecedor}'
+    `;
+    const resultado = await executarQuery(query);
+    return resultado[0] || null;
+  }
 
-async function criarClienteFornecedorOmie(dadosFornecedor) {
-  if (!dadosFornecedor) return null;
+  async function criarClienteFornecedorOmie(dadosFornecedor) {
+    if (!dadosFornecedor) return null;
 
-  const payload = omie.gerarPayload("IncluirCliente", [{
-    codigo_cliente_integracao: dadosFornecedor.CODCFO,
-    email: dadosFornecedor.EMAIL  ,
-    razao_social: dadosFornecedor.RAZAO ,
-    nome_fantasia: dadosFornecedor.NOMEFANTASIA 
-  }]);
-  
-  const data = await omie.postOmie(omie.OMIE_URLS.CLIENTES, payload);
-  return data.codigo_cliente_omie || null;
-}
+    const payload = omie.gerarPayload("IncluirCliente", [{
+      codigo_cliente_integracao: dadosFornecedor.CODCFO,
+      email: dadosFornecedor.EMAIL  ,
+      razao_social: dadosFornecedor.RAZAO ,
+      nome_fantasia: dadosFornecedor.NOMEFANTASIA 
+    }]);
+    
+    const data = await omie.postOmie(omie.OMIE_URLS.CLIENTES, payload);
+    return data.codigo_cliente_omie || null;
+  }
 
 module.exports = { listarContasAPagarOmie, incluirContasPagarNoOmie };

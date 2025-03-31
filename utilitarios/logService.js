@@ -7,6 +7,7 @@ function salvarLog(nomeArquivo, sucesso, erros) {
     const logPath = path.join(__dirname, `../logs/${nomeArquivo}_${timestamp}.txt`);
 
     const dataAtual = new Date().toLocaleString("pt-BR");
+    console.log("sucesso", sucesso, "sucesso")
 
     let logContent = `📅 Log de execução - ${dataAtual}\n`;
     logContent += `\n✅ Contas enviadas com sucesso: ${sucesso.length}\n`;

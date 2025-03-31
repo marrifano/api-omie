@@ -1,15 +1,15 @@
 
 const axios = require("axios");
 const https = require("https");  
-const { formatarData } = require("../utilitarios/auxiliares");
+const { formatarData, aguardarEnter } = require("../utilitarios/auxiliares");
 const { salvarLog } = require("../utilitarios/logService");
-const { gerarPayload } = require("../utilitarios/payloads");
-const { buscarContasPagarRM } = require("../services/rmService");  
+const { gerarPayload } = require("../utilitarios/payloads"); 
+const { buscarContasPagarRM, buscarContaRM } = require("../services/rmService");  
 const { buscarCategoriasOmie, 
     buscarCodigoContaCorrente, 
     buscarClienteOmie,
     enviarParaOmieBaixadas,
-    enviarParaOmieNaoBaixadas  } = require("../services/omieService");  
+    enviarParaOmieNaoBaixadas, buscarDepartamentosOmie  } = require("../services/omieService");  
 
     const OMIE_APP_KEY = process.env.OMIE_APP_KEY;
     const OMIE_APP_SECRET = process.env.OMIE_APP_SECRET;
@@ -33,25 +33,31 @@ const { buscarCategoriasOmie,
             console.error("❌ Erro ao listar contas a pagar:", error.message);
             res.status(500).json({ error: error.message });
         }
-    }
- 
+    } 
 
     async function incluirContaPagar(req, res) { 
 
       try {  
-            dataDeVencimento = req.query.data
-
+            dataDeVencimento = req.query.data  
+            
+            console.log("🔄 Carregando os dados necessários...");
+            
             const contasRM = await buscarContasPagarRM(dataDeVencimento);  
-            const categoriasOmie = await buscarCategoriasOmie();    
-            const codigoPadrao = "2.02.99";  
+            const categoriasOmie = await buscarCategoriasOmie();  
+            const departamentosOmie = await buscarDepartamentosOmie(); 
+            const codigoPadrao = "2.02.99";   
+             
  
             const contasBaixadas = [];
             const contasNaoBaixadas = [];
             
+            const logsBaixadas = { sucesso: [], erros: [] };
+            const logsNaoBaixadas = { sucesso: [], erros: [] };
+
 
             for (let conta of contasRM) {   
                 conta.codigo_cliente_fornecedor = await buscarClienteOmie(conta.codigo_cliente_fornecedor); //ACHAR CLIENTE.
-                console.log("📌 Codigo do cliente utilizado2:", conta.codigo_cliente_fornecedor)  
+                console.log("📌 Codigo do cliente utilizado:", conta.codigo_cliente_fornecedor)  
                 const codigoConta = await buscarCodigoContaCorrente(conta.id_conta_corrente); //ACHAR CONTA CORRENTE.
         
                 if (codigoConta) {
@@ -59,16 +65,65 @@ const { buscarCategoriasOmie,
                     conta.id_conta_corrente = codigoConta;
                 }   
 
-                //ACHA A CATEGORIA 
-                console.log('🔍 Buscando código da categoria: ', conta.codigo_categoria)
-                const categoriaEncontrada = categoriasOmie.find(cat => cat.descricao === conta.codigo_categoria);
-                conta.codigo_categoria = categoriaEncontrada ? categoriaEncontrada.codigo : codigoPadrao; 
-                  
+                //ACHA A CATEGORIA  
+                const nomesAcionistas = ['AC1', 'AC2', 'AC3', 'AC4', 'AC5', 'AC6'];
+                const codigoAcionistas = "2.02.04";
+   
+                // Verifica o departamento é de acionistas, se for, joga tudo para a natureza/categoria acionista
+                if (nomesAcionistas.some(dep => conta.departamento.startsWith(dep))) {
+                  conta.codigo_categoria = codigoAcionistas;
+                 } else { 
+                  const categoriasFiltradas = categoriasOmie.filter(cat => cat.descricao === conta.codigo_categoria);
+  
+                  // Verifica se a categoria é cabeça, se for, joga para a subcategoria com o mesmo nome. 
+                if (categoriasFiltradas.length > 1) {
+                    const subcategoria = categoriasFiltradas.reduce((maisEspecifica, categoriaAtual) =>
+                      categoriaAtual.codigo.length > maisEspecifica.codigo.length ? categoriaAtual : maisEspecifica
+                    );
+
+                    conta.codigo_categoria = subcategoria.codigo;
+
+                  } else if (categoriasFiltradas.length === 1) {
+                    conta.codigo_categoria = categoriasFiltradas[0].codigo;
+
+                  } else {
+                    console.warn(`⚠️ Categoria não encontrada para ${conta.codigo_categoria}, usando código padrão.`);
+                    conta.codigo_categoria = codigoPadrao;
+                  }
+                }
+
+                console.log('✅ Código da categoria final: ', conta.codigo_categoria);
+
+
                 //FORMATA DATAS
                 conta.data_vencimento = formatarData(conta.data_vencimento)  
                 conta.data_previsao = formatarData(conta.data_previsao)
                 conta.data_baixa = formatarData(conta.data_baixa)
+
+                //ACHAR DEPARTAMENTO 
+                const departamentoEncontrado = departamentosOmie.find(dep => dep.descricao === conta.departamento);
+                conta.codigo_departamento = departamentoEncontrado ? departamentoEncontrado.codigo : null; 
+                
+                 
+                conta.distribuicao = conta.departamento ? [{
+                    cCodDep: conta.codigo_departamento,
+                    cDesDep: conta.departamento,
+                    nValDep: conta.valor_documento,
+                    nPerDep: 100.00  
+                }] : [];
  
+
+                const resultadoEnvio = conta.statuslan == 1
+                ? await enviarParaOmieBaixadas([conta])
+                : await enviarParaOmieNaoBaixadas([conta]);
+    
+                const log = conta.statuslan == 1 ? logsBaixadas : logsNaoBaixadas;
+                log.sucesso.push({ id: conta.codigo_lancamento_integracao, retorno: resultadoEnvio });
+        
+                console.log(`✅ Conta enviada: ${conta.codigo_lancamento_integracao}`);
+
+/*
+                 
                 // SEPARA CONTAS BAIXADAS DAS NÃO BAIXADAS 
                 if (conta.statuslan == 1) {
                     console.log("✅ Conta paga identificada. ");
@@ -77,34 +132,75 @@ const { buscarCategoriasOmie,
                     console.log("⚠️ Conta não paga identificada.");
                     contasNaoBaixadas.push(conta);
                 }
-            }  
-            
-            console.log(`📌 Total de contas baixadas: ${contasBaixadas.length}`);
-            console.log(`📌 Total de contas não baixadas: ${contasNaoBaixadas.length}`);
- 
-        // Envia separadamente as duas listas
-        const resultadosNaoBaixadas = await enviarParaOmieNaoBaixadas(contasNaoBaixadas);
-        const resultadosBaixadas = await enviarParaOmieBaixadas(contasBaixadas);  
-
-        salvarLog("log_contas_nao_baixadas", resultadosNaoBaixadas.sucesso, resultadosNaoBaixadas.erros); 
-        salvarLog("log_contas_baixadas", resultadosBaixadas.sucesso, resultadosBaixadas.erros); 
-
-
-       // const resultados = await enviarParaOmie(contasFormatadas); 
-        res.json({ 
-            mensagem: "Contas a pagar enviadas com sucesso!",
-            baixadas: resultadosBaixadas,
-            nao_baixadas: resultadosNaoBaixadas
-        });
-
-    } catch (error) {
-      console.error("❌ Erro geral:", error);
-          res.status(500).json({ erro: error.message });
+                     */
+            }   
   
-        } 
+ 
+       // const resultados = await enviarParaOmie(contasFormatadas);  
+    } catch (erro) {
+        const log = conta.statuslan == 1 ? logsBaixadas : logsNaoBaixadas;
+        log.erros.push({ id: conta.codigo_lancamento_integracao, erro: erro.message });
+        console.error(`   ❌ Erro ao enviar conta ${conta.codigo_lancamento_integracao}:`, erro.message);
+      }
+
+      salvarLog("log_contas_nao_baixadas", logsNaoBaixadas.sucesso, logsNaoBaixadas.erros);
+      salvarLog("log_contas_baixadas", logsBaixadas.sucesso, logsBaixadas.erros);
+
+      res.json({
+          mensagem: "Contas enviadas direto após conversão!",
+          baixadas: logsBaixadas,
+          nao_baixadas: logsNaoBaixadas
+      });
+
     } 
+ 
+    async function enviarContaIndividual(req, res) {  
+        try {
+          const idlan = req.query.idlan;  
+          const contas = await buscarContaRM(idlan); 
+          if (!contas || contas.length === 0) {
+            return res.status(404).json({ erro: "Conta não encontrada no RM" });
+          }
+      
+            const conta = contas[0];
+      
+          // Enriquecer a conta com dados do Omie
+          conta.codigo_cliente_fornecedor = await buscarClienteOmie(conta.codigo_cliente_fornecedor);
+          conta.id_conta_corrente = await buscarCodigoContaCorrente(conta.id_conta_corrente);
+      
+          const categoriasOmie = await buscarCategoriasOmie();
+          const categoria = categoriasOmie.find(cat => cat.descricao === conta.codigo_categoria);
+          conta.codigo_categoria = categoria?.codigo || "2.02.99";
+      
+          const departamentosOmie = await buscarDepartamentosOmie();
+          const dep = departamentosOmie.find(d => d.descricao === conta.departamento);
+          conta.codigo_departamento = dep?.codigo;
 
-    
-    
+          
+            //FORMATA DATAS
+            conta.data_vencimento = formatarData(conta.data_vencimento)  
+            conta.data_previsao = formatarData(conta.data_previsao)
+            conta.data_baixa = formatarData(conta.data_baixa)
 
-module.exports = { listarContasAPagar, incluirContaPagar };
+      
+          conta.distribuicao = dep ? [{
+            cCodDep: conta.codigo_departamento,
+            cDesDep: conta.departamento,
+            nValDep: conta.valor_documento,
+            nPerDep: 100.00
+          }] : [];
+           
+      
+          const enviado = conta.statuslan == 1
+            ? await enviarParaOmieBaixadas([conta])
+            : await enviarParaOmieNaoBaixadas([conta]);
+      
+          res.json({ mensagem: "Envio Concluido! ", resultado: enviado,   });
+          console.log( )
+        } catch (error) {
+          console.error("❌ Erro ao enviar conta individual:", error);
+          res.status(500).json({ erro: "Erro ao enviar conta" });
+        }
+      } 
+      
+module.exports = { listarContasAPagar, incluirContaPagar,   enviarContaIndividual  };
