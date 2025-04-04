@@ -46,10 +46,8 @@ const { buscarCategoriasOmie,
             const categoriasOmie = await buscarCategoriasOmie();  
             const departamentosOmie = await buscarDepartamentosOmie(); 
             const codigoPadrao = "2.02.99";   
-             
- 
-            const contasBaixadas = [];
-            const contasNaoBaixadas = [];
+              
+            
             
             const logsBaixadas = { sucesso: [], erros: [] };
             const logsNaoBaixadas = { sucesso: [], erros: [] };
@@ -111,7 +109,12 @@ const { buscarCategoriasOmie,
                     nValDep: conta.valor_documento,
                     nPerDep: 100.00  
                 }] : [];
- 
+
+                          
+                conta.retem_ir = conta.valor_ir > 0 ? "S" : "N";
+          
+                console.log(conta)
+                console.log(conta.retem_ir)
 
                 const resultadoEnvio = conta.statuslan == 1
                 ? await enviarParaOmieBaixadas([conta])
@@ -157,7 +160,8 @@ const { buscarCategoriasOmie,
     async function enviarContaIndividual(req, res) {  
         try {
           const idlan = req.query.idlan;  
-          const contas = await buscarContaRM(idlan); 
+          const vencimento = req.query.vencimento;  
+          const contas = await buscarContaRM(idlan, vencimento); 
           if (!contas || contas.length === 0) {
             return res.status(404).json({ erro: "Conta não encontrada no RM" });
           }

@@ -52,7 +52,8 @@ const agent = new https.Agent({ keepAlive: true, minVersion: "TLSv1.2" });
         }
     }
     
-    async function buscarCodigoContaCorrente(idContaCorrente) {   
+    async function buscarCodigoContaCorrente(idContaCorrente) {  
+        console.log("contacorre", idContaCorrente) 
     
         try {
             await esperar(intervaloRequisicoes);   
@@ -202,6 +203,7 @@ const agent = new https.Agent({ keepAlive: true, minVersion: "TLSv1.2" });
         
             try {
                 await esperar(intervaloRequisicoes);
+                console.log("CONTAAA", conta) 
         
                 const payloadConta = gerarPayload("UpsertContaPagar", [{
                     codigo_lancamento_integracao: conta.codigo_lancamento_integracao,
@@ -214,6 +216,8 @@ const agent = new https.Agent({ keepAlive: true, minVersion: "TLSv1.2" });
                     id_conta_corrente: conta.id_conta_corrente,
                     distribuicao: conta.distribuicao,
                     observacao: conta.observacao,
+                    valor_ir: conta.valor_ir,
+                    retem_ir: conta.retem_ir,
                 }]);
         
                 await axios.post(OMIE_URLS.CONTAS_PAGAR, payloadConta, {
@@ -270,6 +274,7 @@ const agent = new https.Agent({ keepAlive: true, minVersion: "TLSv1.2" });
         console.log("\n \n🔍 CONTAS EM ABERTO A SEREM ENVIADAS: "); 
 
         for (const conta of contas) {
+            console.log(conta)
             if (!validarCamposObrigatorios(conta)) {
                 continue; // pula essa conta
             }
@@ -330,13 +335,14 @@ const agent = new https.Agent({ keepAlive: true, minVersion: "TLSv1.2" });
         const faltando = camposObrigatorios.filter(c => c.valor === null || c.valor === undefined || c.valor === "");
       
         if (faltando.length > 0) {
+            console.log(conta)
           console.warn(`⚠️ Conta ${conta.codigo_lancamento_integracao} **não enviada**. Campos obrigatórios ausentes:`);
           faltando.forEach(c => console.warn(`- ${c.nome} está vazio`));
           return false;
         }
       
         return true;
-      }
+    }
       
     async function buscarDepartamentosOmie() {
         try {

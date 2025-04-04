@@ -4,5 +4,6 @@ const router = express.Router();
  
 router.get("/contaPorDia", validarContasPorDia);
 router.get("/contaPorMes", validarContasPorMes);
+//router.get("/atualizacao", validacao);
 
 module.exports = router;

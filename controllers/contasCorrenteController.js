@@ -51,8 +51,8 @@ async function esperar(ms) {
                 LEFT JOIN FCONTA F ON CX.NUMAGENCIA = f.NUMAGENCIA and cx.NUMBANCO = f.NUMBANCO and cx.nroconta = F.NROCONTA 
                 LEFT JOIN GBANCO B ON F.NUMBANCO = B.NUMBANCO 
 
-                WHERE CX.DESCRICAO IS NOT NULL  
-                    and F.NUMAGENCIA is not null 
+                WHERE CX.DESCRICAO IS NOT NULL    
+                    and CX.CODCXA = 'N_037_002'
         `;
     
         const result = await connection.execute(sql);
@@ -138,27 +138,15 @@ async function esperar(ms) {
     }
 }
 
-  async function enviarParaOmie(contas) {
-    const resultados = [];
-    const contasFalharam = [];  
+  async function enviarParaOmie(contas) { 
 
     console.log("🔍 Verificando quais contas já existem no Omie...");
-    const contasExistentes = await buscarContasCorrenteOmie();
-    
-    console.log("📋 Contas existentes no Omie:", contasExistentes.map(c => c.descricao));
+    //const contasExistentes = await buscarContasCorrenteOmie(); 
+    console.log(contas)
 
+      const contasParaEnvio = contas
     // 🔥 Comparação pelo campo "descricao" para evitar reenvios de contas já cadastradas
-    const contasParaEnvio = contas.filter(contaRM => 
-        !contasExistentes.some(contaOmie => 
-            contaOmie.descricao.trim().toLowerCase() === contaRM.descricao.trim().toLowerCase()
-        )
-    );
-
-    if (contasParaEnvio.length === 0) {
-        console.log("✅ Nenhuma nova conta para enviar. Todas já existem no Omie.");
-        return { enviados: [], falhados: [] };
-    }
-
+     
     console.log(`📦 ${contasParaEnvio.length} contas serão enviadas para o Omie.`);
 
     for (const conta of contasParaEnvio) {
@@ -179,8 +167,7 @@ async function esperar(ms) {
             await esperar(1000); // Evita limite da API
 
         } catch (error) {
-            console.error(`❌ Erro ao enviar conta ${conta.descricao}:`, error.response?.data || error.message);
-            contasFalharam.push(conta);
+            console.error(`❌ Erro ao enviar conta ${conta.descricao}:`, error.response?.data || error.message); 
         }
     }
 
@@ -202,11 +189,10 @@ async function esperar(ms) {
   await esperar(1000);
     try {  
       console.log("🔄 Buscando contas no RM TOTVS...");
-      const contas = await buscarContasRM();
+      const contas = await buscarContasRM(); 
       if (contas.length === 0) {
         return res.status(400).json({ erro: "Nenhuma conta importada encontrada no RM TOTVS." });
-      }
-  
+      } 
       const resultados = await enviarParaOmie(contas);
   
       res.json({

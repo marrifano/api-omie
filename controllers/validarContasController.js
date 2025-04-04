@@ -20,8 +20,8 @@ async function validarContasPorDia(req, res) {
         console.log(`📅 Validando contas para o dia: ${dataVencimento}`);
 
         // 🔎 Buscar dados no RM e Omie
-        const contasRM =    await buscarContasPagarRM(dataVencimento);
-        const contasOmie =  await buscarContasPagarOmie(dataVencimento);  
+        const contasRM = await buscarContasPagarRM(dataVencimento);
+        const contasOmie = await buscarContasPagarOmie(dataVencimento);  
 
             if (contasRM.length === 0 && contasOmie.length === 0) {
                 return res.json({ mensagem: `Nenhuma conta encontrada no RM nem no Omie para ${dataVencimento}` });
@@ -56,6 +56,7 @@ async function validarContasPorDia(req, res) {
                 codigo_lancamento_integracao: normalizarCodigo(conta.codigo_lancamento_integracao),
                 valor_documento: parseFloat(conta.valor_baixado), 
                 data_vencimento: formatarParaDDMMYYYY(conta.data_vencimento),
+                coligada: conta.coligada
             }));
  
             const omieLista = contasOmie.map(conta => ({
@@ -86,7 +87,8 @@ async function validarContasPorDia(req, res) {
                     valor_rm: contaRM.valor_documento,
                     valor_omie: "-",
                     diferenca: "-",
-                    desconto: contaRM.desconto || "-"
+                    desconto: contaRM.desconto || "-",
+                    coligada: contaRM.coligada
                 });
             } else { 
                 const diferenca = contaOmie.valor_documento - contaRM.valor_documento;
@@ -100,7 +102,8 @@ async function validarContasPorDia(req, res) {
                         valor_rm: contaRM.valor_documento,
                         valor_omie: contaOmie.valor_documento,
                         diferenca: diferenca.toFixed(2),
-                        desconto: contaRM.desconto || "-"
+                        desconto: contaRM.desconto || "-",
+                        coligada: contaRM.coligada
                     });
                 } else {
                     resultadoValidacao.push({
@@ -111,7 +114,8 @@ async function validarContasPorDia(req, res) {
                         valor_rm: contaRM.valor_documento, 
                         valor_omie: contaOmie.valor_documento,
                         diferenca: "0.00",
-                        desconto: contaRM.desconto || "-"
+                        desconto: contaRM.desconto || "-", 
+                        coligada: contaRM.coligada
                     });
                 }
             }
@@ -131,29 +135,47 @@ async function validarContasPorDia(req, res) {
                     data_vencimento: contaOmie.data_vencimento,
                     valor_rm: "-",
                     valor_omie: contaOmie.valor_documento,
-                    diferenca: "-"
+                    diferenca: "-",
+                    coligada: 0
                 });
             }
         });
 
         // 📊 Exibir os resultados no console
         console.log("📊 Resultado da validação:");
-        const resultadoOrdenado = resultadoValidacao.sort((a, b) => b.valor_rm - a.valor_rm);
+        const resultadoOrdenado = resultadoValidacao.sort((a, b) => b.valor_rm - a.valor_rm); 
         const resultadoFiltrado = resultadoOrdenado.filter(conta => conta.status === "❌ NÃO EXISTE NO OMIE")
- 
+
         
-        console.table(resultadoOrdenado); 
+        const coligadas = [1, 8, 10, 12, 15, 16, 21];
+
+       coligadas.forEach(coligada => {
+          const resultadoFiltrado = resultadoOrdenado.filter(conta => conta.coligada == coligada); 
+           
+          const somacoligadaRM = resultadoFiltrado.reduce((acc, conta) => acc + (conta.valor_rm || 0), 0);
+          const somacoligadaOmie = resultadoFiltrado.reduce((acc, conta) => acc + (conta.valor_omie || 0), 0);
+
+          if (somacoligadaOmie > 0 ) {
+            console.log(`🔹 COLIGADA ${coligada} valor total RM: ${somacoligadaRM} valor total Omie: ${somacoligadaOmie} `); 
+          }
+/*
+          if ( coligada == 10  ) {
+            console.table(resultadoFiltrado)
+          } */
+       });
+
+         console.table(resultadoOrdenado); 
         console.table(resultadoFiltrado);  
         
         console.log(`📊 TOTAL DE CONTAS NO OMIE: ${resultadoOrdenado.length}`);
         console.log(`📊 TOTAL RM (VALOR PAGO): ${totalValorRM.toFixed(2)}`);
         console.log(`📊 TOTAL OMIE (VALOR DO DOCUMENTO): ${totalValorOmie.toFixed(2)}`);
-       /** */
+        
         while (resultadoFiltrado.length > 0) {
             const conta = resultadoFiltrado[0];
              
             try {
-              await enviarContaIndividual(conta.codigo_lancamento_integracao);
+              await enviarContaIndividual(conta.codigo_lancamento_integracao, conta.data_vencimento);
                
               resultadoFiltrado.shift();
            
@@ -165,11 +187,7 @@ async function validarContasPorDia(req, res) {
              
              resultadoFiltrado.push(resultadoFiltrado.shift());
             }
-          }
-          
-          
-        
-        
+          }  
        
     } catch (error) {
         console.error("❌ Erro ao validar contas por dia:", error);
@@ -177,8 +195,8 @@ async function validarContasPorDia(req, res) {
     }
 }
 
-async function enviarContaIndividual(idLan) {
-    const contas = await buscarContaRM(idLan);
+async function enviarContaIndividual(idLan, vencimento) {
+    const contas = await buscarContaRM(idLan, vencimento);
     if (!contas || contas.length === 0) throw new Error("Conta não encontrada no RM");
 
     const categoriasOmie = await buscarCategoriasOmie();
@@ -224,10 +242,11 @@ async function enviarContaIndividual(idLan) {
         cDesDep: conta.departamento,
         nValDep: conta.valor_documento,
         nPerDep: 100.00
-    }] : [];
+    }] : []; 
 
-    // Envia
-    console.log(conta.statuslan, "STATUS ")
+    conta.retem_ir = conta.valor_ir > 0 ? "S" : "N";
+ 
+    // Envia 
     return conta.statuslan == 1
         ? await enviarParaOmieBaixadas([conta])
         : await enviarParaOmieNaoBaixadas([conta]);
@@ -262,7 +281,9 @@ async function validarContasPorMes(req, res) {
         codigo_lancamento_integracao: String(conta.codigo_lancamento_integracao).trim(),
         valor_documento: parseFloat(conta.valor_baixado),
         data_vencimento: dataVencimento,
+        coligada: coligada,
       }));
+ 
   
       const omieLista = contasOmie.map(conta => ({
         codigo_lancamento_integracao: String(conta.codigo_lancamento_integracao).trim(),
@@ -276,7 +297,7 @@ async function validarContasPorMes(req, res) {
       rmLista.forEach(contaRM => {
         const contaOmie = omieLista.find(conta =>
           conta.codigo_lancamento_integracao === contaRM.codigo_lancamento_integracao &&
-          conta.data_vencimento === contaRM.data_vencimento
+          conta.data_vencimento === contaRM.data_vencimento, 
         );
   
         if (!contaOmie) {
@@ -287,6 +308,7 @@ async function validarContasPorMes(req, res) {
             valor_rm: contaRM.valor_documento,
             valor_omie: "-",
             diferenca: "-",
+            coligada: contaRM.coligada,
           });
         } else {
           const diferenca = contaOmie.valor_documento - contaRM.valor_documento;
@@ -298,6 +320,7 @@ async function validarContasPorMes(req, res) {
               valor_omie: contaOmie.valor_documento,
               diferenca: diferenca.toFixed(2),
               data_vencimento: contaRM.data_vencimento,
+              coligada: contaRM.coligada,
             });
           } else {
             resultadoValidacao.push({
@@ -307,6 +330,7 @@ async function validarContasPorMes(req, res) {
               valor_omie: contaOmie.valor_documento,
               diferenca: "0.00",
               data_vencimento: contaRM.data_vencimento,
+              coligada: contaRM.coligada,
             });
           }
         }
@@ -335,7 +359,7 @@ async function validarContasPorMes(req, res) {
   
       for (const conta of contasParaEnviar) {
         try {
-          await enviarContaIndividual(conta.codigo_lancamento_integracao);
+          await enviarContaIndividual(conta.codigo_lancamento_integracao, conta.data_vencimento);
           console.log(`✅ Enviada: ${conta.codigo_lancamento_integracao}`);
         } catch (error) {
           console.error(`❌ Falha ao enviar ${conta.codigo_lancamento_integracao}: ${error.message}`);
