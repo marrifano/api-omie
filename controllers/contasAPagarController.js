@@ -205,6 +205,88 @@ const { buscarCategoriasOmie,
           console.error("❌ Erro ao enviar conta individual:", error);
           res.status(500).json({ erro: "Erro ao enviar conta" });
         }
-      } 
+    } 
+
+    
+    async function listarRm(req, res) {
+      try {
+        const dataVencimento = req.query.data;
+        console.log(dataVencimento)
+    
+        if (!dataVencimento) {
+          return res.status(400).json({ erro: "Informe a data no formato DD/MM/AAAA. Exemplo: ?data=20/03/2025" });
+        }
+    
+        console.log(`📅 Buscando contas para o dia ${dataVencimento}`);
+    
+        const contas = await buscarContasPagarRM(dataVencimento);
+    
+        res.json({
+          mensagem: "Contas do dia listadas com sucesso!",
+          contas
+        });
+    
+      } catch (error) {
+        console.error("❌ Erro ao listar contas por dia:", error);
+        res.status(500).json({ erro: error.message });
+      }
+    }
+
+    
+    async function enviarOmie(req, res) {  
+      try {
+        const idlan = req.query.idlan;  
+        const vencimento = req.query.vencimento;  
+
+        if (!idlan || !vencimento) {
+          return res.status(400).json({ erro: "Parâmetros 'idlan' e 'vencimento' são obrigatórios" });
+        }
+
+        
+        const contas = await buscarContaRM(idlan, vencimento); 
+        if (!contas || contas.length === 0) {
+          return res.status(404).json({ erro: "Conta não encontrada no RM" });
+        }
+    
+          const conta = contas[0];
+    
+        // Enriquecer a conta com dados do Omie
+        conta.codigo_cliente_fornecedor = await buscarClienteOmie(conta.codigo_cliente_fornecedor);
+        conta.id_conta_corrente = await buscarCodigoContaCorrente(conta.id_conta_corrente);
+    
+        const categoriasOmie = await buscarCategoriasOmie();
+        const categoria = categoriasOmie.find(cat => cat.descricao === conta.codigo_categoria);
+        conta.codigo_categoria = categoria?.codigo || "2.02.99";
+    
+        const departamentosOmie = await buscarDepartamentosOmie();
+        const dep = departamentosOmie.find(d => d.descricao === conta.departamento);
+        conta.codigo_departamento = dep?.codigo;
+
+        
+          //FORMATA DATAS
+          conta.data_vencimento = formatarData(conta.data_vencimento)  
+          conta.data_previsao = formatarData(conta.data_previsao)
+          conta.data_baixa = formatarData(conta.data_baixa)
+
+    
+        conta.distribuicao = dep ? [{
+          cCodDep: conta.codigo_departamento,
+          cDesDep: conta.departamento,
+          nValDep: conta.valor_documento,
+          nPerDep: 100.00
+        }] : [];
+         
+    
+        const enviado = conta.statuslan == 1
+          ? await enviarParaOmieBaixadas([conta])
+          : await enviarParaOmieNaoBaixadas([conta]);
+    
+        res.json({ mensagem: "Envio Concluido! ", resultado: enviado,   });
+        console.log( )
+      } catch (error) {
+        console.error("❌ Erro ao enviar conta individual:", error);
+        res.status(500).json({ erro: "Erro ao enviar conta" });
+      }
+    }  
       
-module.exports = { listarContasAPagar, incluirContaPagar,   enviarContaIndividual  };
+module.exports = { listarContasAPagar, incluirContaPagar,   enviarContaIndividual, listarRm, enviarOmie };

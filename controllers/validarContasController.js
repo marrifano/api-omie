@@ -6,9 +6,8 @@ const { buscarCategoriasOmie,
     buscarClienteOmie,
     enviarParaOmieBaixadas,
     enviarParaOmieNaoBaixadas, buscarDepartamentosOmie, buscarContasPagarOmie } = require("../services/omieService");  
-
-async function validarContasPorDia(req, res) {
-
+ 
+async function validarContasPorDia(req, res) { 
     console.log("🔍 Iniciando validação de contas..."); 
 
     try {
@@ -158,10 +157,10 @@ async function validarContasPorDia(req, res) {
           if (somacoligadaOmie > 0 ) {
             console.log(`🔹 COLIGADA ${coligada} valor total RM: ${somacoligadaRM} valor total Omie: ${somacoligadaOmie} `); 
           }
-/*
+ 
           if ( coligada == 10  ) {
             console.table(resultadoFiltrado)
-          } */
+          }  
        });
 
          console.table(resultadoOrdenado); 
@@ -183,8 +182,7 @@ async function validarContasPorDia(req, res) {
               console.table(resultadoFiltrado); 
             } catch (error) {
               console.error(`❌ Falha ao enviar conta ${conta.codigo_lancamento_integracao}:`, error.message);
-             
-             
+              
              resultadoFiltrado.push(resultadoFiltrado.shift());
             }
           }  
@@ -194,6 +192,7 @@ async function validarContasPorDia(req, res) {
         res.status(500).json({ erro: error.message });
     }
 }
+ 
 
 async function enviarContaIndividual(idLan, vencimento) {
     const contas = await buscarContaRM(idLan, vencimento);
@@ -373,5 +372,54 @@ async function validarContasPorMes(req, res) {
     return res.json({ validacoes: todasValidacoes });
   }
   
+
   
-module.exports = { validarContasPorDia, validarContasPorMes };
+async function validaConta(req, res) { 
+  try {
+    const idlan = req.query.idlan;
+    const data = req.query.data;
+
+    if (!idlan || !data) {
+      return res.status(400).json({ erro: "Informe 'idlan' e 'data' na query. Ex: ?idlan=123&data=20/03/2025" });
+    }
+
+    console.log(`🔎 Validando conta IDLAN ${idlan} para a data ${data}`);
+
+    const contasRM = await buscarContaRM(idlan, data);
+    if (!contasRM || contasRM.length === 0) {
+      return res.status(404).json({ erro: "Conta não encontrada no RM" });
+    }
+
+    const contaRM = contasRM[0];
+    const contasOmie = await buscarContasPagarOmie(data);
+
+    const normalizar = codigo => String(codigo).trim();
+
+    const idlanNormalizado = normalizar(contaRM.codigo_lancamento_integracao);
+    const dataVenc = new Date(contaRM.data_vencimento);
+    const dataVencFormatada = `${String(dataVenc.getUTCDate()).padStart(2, '0')}/${String(dataVenc.getUTCMonth() + 1).padStart(2, '0')}/${dataVenc.getUTCFullYear()}`;
+
+    const contaExiste = contasOmie.some(omie =>
+      normalizar(omie.codigo_lancamento_integracao) === idlanNormalizado &&
+      omie.data_vencimento === dataVencFormatada
+    );
+
+    const resultado = {
+      codigo_lancamento_integracao: idlanNormalizado,
+      data_vencimento: dataVencFormatada,
+      valor_rm: contaRM.valor_documento || contaRM.valor_baixado,
+      existe_no_omie: contaExiste,
+      status: contaExiste ? "✅ Conta já existe no Omie" : "❌ Conta NÃO existe no Omie"
+    };
+
+    console.log("📋 Resultado:", resultado);
+    res.json(resultado);
+
+  } catch (error) {
+    console.error("❌ Erro ao validar conta individual:", error);
+    res.status(500).json({ erro: "Erro interno ao validar conta individual" });
+  }
+}
+
+  
+module.exports = { validarContasPorDia, validarContasPorMes, validaConta };
