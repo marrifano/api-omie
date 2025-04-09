@@ -9,13 +9,12 @@ const dbConfig = {
 async function getConnection() {
     try {
         const connection = await oracledb.getConnection(dbConfig);
-        console.log("\n     ✅ Conectando ao Oracle..... \n");
+        console.log(" ✅ Conectando ao Oracle..... ");
         return connection;
     } catch (error) {
         console.error("❌ Erro ao conectar no Oracle RM:", error.message);
         throw error;
     }
 }
-
 
 module.exports = { getConnection };

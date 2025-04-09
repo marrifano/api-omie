@@ -20,6 +20,7 @@ const OMIE_URLS = {
 
 };
 
+
 const agent = new https.Agent({ keepAlive: true, minVersion: "TLSv1.2" });
 
     const headers = {
@@ -52,8 +53,7 @@ const agent = new https.Agent({ keepAlive: true, minVersion: "TLSv1.2" });
         }
     }
     
-    async function buscarCodigoContaCorrente(idContaCorrente) {  
-        console.log("contacorre", idContaCorrente) 
+    async function buscarCodigoContaCorrente(idContaCorrente) {   
     
         try {
             await esperar(intervaloRequisicoes);   
@@ -202,8 +202,7 @@ const agent = new https.Agent({ keepAlive: true, minVersion: "TLSv1.2" });
             }
         
             try {
-                await esperar(intervaloRequisicoes);
-                console.log("CONTAAA", conta) 
+                await esperar(intervaloRequisicoes); 
         
                 const payloadConta = gerarPayload("UpsertContaPagar", [{
                     codigo_lancamento_integracao: conta.codigo_lancamento_integracao,
@@ -411,6 +410,42 @@ const agent = new https.Agent({ keepAlive: true, minVersion: "TLSv1.2" });
             return [];
         }
     }
+
+    async function buscarTodasContasOmie() {
+        try {
+            await esperar(intervaloRequisicoes);   
+            console.log(`🔍 Buscando todas as contas no Omie (sem filtro de data)...`);
+    
+            let pagina = 1;
+            let todasAsContas = [];
+            let totalPaginas = 1;
+    
+            do {
+                console.log(`📄 Buscando página ${pagina}...`);
+                const payload = gerarPayload("ListarContasPagar", [{
+                    "pagina": pagina,
+                    "registros_por_pagina": 500
+                }]);
+    
+                const response = await axios.post(OMIE_URLS.CONTAS_PAGAR, payload, { headers });
+    
+                if (response.data && response.data.conta_pagar_cadastro) {
+                    todasAsContas.push(...response.data.conta_pagar_cadastro);
+                    totalPaginas = response.data.total_de_paginas || 1;
+                }
+    
+                pagina++;
+            } while (pagina <= totalPaginas);
+    
+            console.log(`✅ Total de contas carregadas do Omie: ${todasAsContas.length}`);
+            return todasAsContas;
+    
+        } catch (error) {
+            console.error("❌ Erro ao buscar contas no Omie:", error);
+            return [];
+        }
+    }
+    
  
 
 module.exports = { buscarCategoriasOmie, 
@@ -419,5 +454,6 @@ module.exports = { buscarCategoriasOmie,
     enviarParaOmieNaoBaixadas,
     enviarParaOmieBaixadas,
     buscarContasPagarOmie,
+    buscarTodasContasOmie,
     buscarDepartamentosOmie
 };

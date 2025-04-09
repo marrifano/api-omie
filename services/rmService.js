@@ -23,11 +23,17 @@ async function executarQueryComParametros(sql, parametros) {
     } finally {
         if (connection) await connection.close();
     }
-}
-
+} 
 
 async function buscarContasPagarRM(dataVencimento) {
     const sql = carregarQuery("buscarContasPorData.sql");
+    const rows = await executarQueryComParametros(sql, { dataVencimento });
+    return mapearContas(rows);
+} 
+
+async function buscarLancamentosDoDia(dataVencimento) {
+    console.log("Buscando Lançamentos do dia ")
+    const sql = carregarQuery("lancametosDoDia.sql"); 
     const rows = await executarQueryComParametros(sql, { dataVencimento });
     return mapearContas(rows);
 }
@@ -83,5 +89,6 @@ function mapearContas(rows) {
 module.exports = {
     buscarContasPagarRM,
     buscarContaRM,
-    buscarDadosClienteRM
+    buscarDadosClienteRM,
+    buscarLancamentosDoDia
 };

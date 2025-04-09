@@ -422,4 +422,4 @@ async function validaConta(req, res) {
 }
 
   
-module.exports = { validarContasPorDia, validarContasPorMes, validaConta };
+module.exports = { validarContasPorDia, validarContasPorMes, validaConta, enviarContaIndividual};
