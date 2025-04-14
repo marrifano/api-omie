@@ -192,8 +192,7 @@ async function validarContasPorDia(req, res) {
         res.status(500).json({ erro: error.message });
     }
 }
- 
-
+  
 async function enviarContaIndividual(idLan, vencimento) {
     const contas = await buscarContaRM(idLan, vencimento);
     if (!contas || contas.length === 0) throw new Error("Conta não encontrada no RM");
@@ -370,10 +369,8 @@ async function validarContasPorMes(req, res) {
   
     console.log(`\n✅ Validação do mês concluída! Total de contas validadas: ${todasValidacoes.length}`);
     return res.json({ validacoes: todasValidacoes });
-  }
-  
-
-  
+}
+    
 async function validaConta(req, res) { 
   try {
     const idlan = req.query.idlan;

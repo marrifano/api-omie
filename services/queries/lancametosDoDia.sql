@@ -61,7 +61,7 @@ SELECT DISTINCT
                         LEFT JOIN TTBORCAMENTO T ON NATU.CODCOLIGADA = T.CODCOLIGADA AND NATU.CODNATFINANCEIRA = T.CODTBORCAMENTO
                         LEFT JOIN GDEPTO DEPT ON DEPT.CODDEPARTAMENTO = L.CODDEPARTAMENTO AND DEPT.CODCOLIGADA = L.CODCOLIGADA AND L.CODFILIAL = DEPT.CODFILIAL
                    
-                        WHERE FBAIXA.reccreatedon between TO_DATE('05/04/2025', 'DD/MM/YYYY')  and  TO_DATE(:datavencimento, 'DD/MM/YYYY')   
+                        WHERE FBAIXA.RECMODIFIEDON between TO_DATE('10/04/2025', 'DD/MM/YYYY')  and  TO_DATE(:datavencimento, 'DD/MM/YYYY')   
                         AND L.CODCOLIGADA IN (1, 8, 10, 12, 15, 16, 21) 
                         AND L.PAGREC = 2 
                         AND L.STATUSLAN IN (1)
