@@ -31,6 +31,6 @@ const sslOptions = {
 iniciarPolling(); 
 
 // Iniciar Servidor HTTPS
-https.createServer(sslOptions, app).listen(3000, () => {
-    console.log("🚀 Servidor rodando com HTTPS na porta 3000...");
+https.createServer(sslOptions, app).listen(3200, () => {
+    console.log("🚀 Servidor rodando com HTTPS na porta 3200...");
 });

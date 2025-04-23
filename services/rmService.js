@@ -82,7 +82,8 @@ function mapearContas(rows) {
         departamento: row[14],
         coligada: row[15],
         valor_ir: row[16],
-        retem_ir: "N"
+        retem_ir: "N",
+        nome_fantasia: row[17],
     }));
 }
 

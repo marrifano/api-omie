@@ -45,7 +45,8 @@ SELECT DISTINCT
                             ELSE ' (OUTRA EMPRESA)'
                             END AS departamento,
                             L.CODCOLIGADA as coligada,
-                            L.VALORIRRF
+                            L.VALORIRRF,
+                            C.NOMEFANTASIA
                         
                     FROM FLAN L    
                         LEFT JOIN GFILIAL F ON L.CODCOLIGADA = F.CODCOLIGADA AND L.CODFILIAL = F.CODFILIAL
